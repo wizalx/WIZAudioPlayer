@@ -80,8 +80,11 @@
     
     NSInteger minCount = MIN(values.count, _countLines);
     
-    for (int pos = 0; pos<minCount; pos++) 
+    for (int pos = 0; pos<minCount; pos++)
+    {
+        //experimental data :)
         self.audioLines[pos].percent = 75 - fabs(([values[pos] floatValue]+5)/0.45);
+    }
     
 }
 

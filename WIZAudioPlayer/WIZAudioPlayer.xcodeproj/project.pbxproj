@@ -18,6 +18,8 @@
 		A9BB9369220021F900BA4484 /* WIZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB9367220021F900BA4484 /* WIZProgressView.m */; };
 		A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BB9368220021F900BA4484 /* WIZProgressView.xib */; };
 		A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB936C2200221500BA4484 /* WIZEqualizer.m */; };
+		A9BB937422007B1B00BA4484 /* WIZAudioProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB937322007B1B00BA4484 /* WIZAudioProcessor.m */; };
+		A9BB937722007F8200BA4484 /* Sum 41.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9BB937622007F8200BA4484 /* Sum 41.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,9 @@
 		A9BB9368220021F900BA4484 /* WIZProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WIZProgressView.xib; sourceTree = "<group>"; };
 		A9BB936B2200221500BA4484 /* WIZEqualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZEqualizer.h; sourceTree = "<group>"; };
 		A9BB936C2200221500BA4484 /* WIZEqualizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZEqualizer.m; sourceTree = "<group>"; };
+		A9BB937222007B1B00BA4484 /* WIZAudioProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZAudioProcessor.h; sourceTree = "<group>"; };
+		A9BB937322007B1B00BA4484 /* WIZAudioProcessor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZAudioProcessor.m; sourceTree = "<group>"; };
+		A9BB937622007F8200BA4484 /* Sum 41.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Sum 41.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +118,9 @@
 				A9BB932D22001C4B00BA4484 /* AppDelegate.m */,
 				A9BB935E22001CA200BA4484 /* WIZPlayerMainScreen.h */,
 				A9BB935F22001CA200BA4484 /* WIZPlayerMainScreen.m */,
+				A9BB936E22007A2800BA4484 /* Processors */,
 				A9BB936122001F4000BA4484 /* SourceView */,
+				A9BB937522007F7400BA4484 /* Resources */,
 				A9BB933222001C4B00BA4484 /* Main.storyboard */,
 				A9BB933522001C4D00BA4484 /* Assets.xcassets */,
 				A9BB933722001C4D00BA4484 /* LaunchScreen.storyboard */,
@@ -159,6 +166,23 @@
 				A9BB9368220021F900BA4484 /* WIZProgressView.xib */,
 			);
 			path = WIZProgressView;
+			sourceTree = "<group>";
+		};
+		A9BB936E22007A2800BA4484 /* Processors */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB937222007B1B00BA4484 /* WIZAudioProcessor.h */,
+				A9BB937322007B1B00BA4484 /* WIZAudioProcessor.m */,
+			);
+			path = Processors;
+			sourceTree = "<group>";
+		};
+		A9BB937522007F7400BA4484 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB937622007F8200BA4484 /* Sum 41.mp3 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9BB933922001C4D00BA4484 /* LaunchScreen.storyboard in Resources */,
+				A9BB937722007F8200BA4484 /* Sum 41.mp3 in Resources */,
 				A9BB933622001C4D00BA4484 /* Assets.xcassets in Resources */,
 				A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */,
 				A9BB933422001C4B00BA4484 /* Main.storyboard in Resources */,
@@ -292,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9BB937422007B1B00BA4484 /* WIZAudioProcessor.m in Sources */,
 				A9BB9369220021F900BA4484 /* WIZProgressView.m in Sources */,
 				A9BB936022001CA200BA4484 /* WIZPlayerMainScreen.m in Sources */,
 				A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */,

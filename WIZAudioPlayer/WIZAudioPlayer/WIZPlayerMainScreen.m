@@ -7,8 +7,13 @@
 //
 
 #import "WIZPlayerMainScreen.h"
+#import "SourceView/WIZEqualizer.h"
+#import "Processors/WIZAudioProcessor.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface WIZPlayerMainScreen ()
+@interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate>
+@property (strong, nonatomic) IBOutlet WIZEqualizer *equalizer;
+@property (nonatomic) WIZAudioProcessor *audioProcessor;
 
 @end
 
@@ -16,17 +21,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.equalizer = [[WIZEqualizer alloc] initWithFrame:_equalizer.frame countLines:10 countTop:10];
+    self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:10];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)tapPlay:(id)sender {
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Sum 41" withExtension:@"mp3"];
+    
+    AVAudioFile *file = [[AVAudioFile alloc] initForReading:url error:nil];
+    
+    AVAudioFormat *format = file.processingFormat;
+    AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
+    
+    AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
+    
+    [file readIntoBuffer:buffer error:nil];
+    
+    [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+    //    [_player scheduleFile:file atTime:nil completionHandler:nil];
+    [self.audioProcessor.player play];
 }
-*/
+
+#pragma mark - audio processor delegate
+
+-(void)WIZAudioProcessorGetValues:(NSArray *)values
+{
+    self.equalizer.values = values;
+}
+
 
 @end
