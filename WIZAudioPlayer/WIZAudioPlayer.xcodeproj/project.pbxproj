@@ -1,0 +1,616 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A9BB932E22001C4B00BA4484 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB932D22001C4B00BA4484 /* AppDelegate.m */; };
+		A9BB933422001C4B00BA4484 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9BB933222001C4B00BA4484 /* Main.storyboard */; };
+		A9BB933622001C4D00BA4484 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9BB933522001C4D00BA4484 /* Assets.xcassets */; };
+		A9BB933922001C4D00BA4484 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9BB933722001C4D00BA4484 /* LaunchScreen.storyboard */; };
+		A9BB933C22001C4D00BA4484 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB933B22001C4D00BA4484 /* main.m */; };
+		A9BB934622001C4D00BA4484 /* WIZAudioPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB934522001C4D00BA4484 /* WIZAudioPlayerTests.m */; };
+		A9BB935122001C4D00BA4484 /* WIZAudioPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB935022001C4D00BA4484 /* WIZAudioPlayerUITests.m */; };
+		A9BB936022001CA200BA4484 /* WIZPlayerMainScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB935F22001CA200BA4484 /* WIZPlayerMainScreen.m */; };
+		A9BB9369220021F900BA4484 /* WIZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB9367220021F900BA4484 /* WIZProgressView.m */; };
+		A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BB9368220021F900BA4484 /* WIZProgressView.xib */; };
+		A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB936C2200221500BA4484 /* WIZEqualizer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A9BB934222001C4D00BA4484 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9BB932122001C4B00BA4484 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9BB932822001C4B00BA4484;
+			remoteInfo = WIZAudioPlayer;
+		};
+		A9BB934D22001C4D00BA4484 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9BB932122001C4B00BA4484 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9BB932822001C4B00BA4484;
+			remoteInfo = WIZAudioPlayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A9BB932922001C4B00BA4484 /* WIZAudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WIZAudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9BB932C22001C4B00BA4484 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A9BB932D22001C4B00BA4484 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A9BB933322001C4B00BA4484 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A9BB933522001C4D00BA4484 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9BB933822001C4D00BA4484 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A9BB933A22001C4D00BA4484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BB933B22001C4D00BA4484 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A9BB934122001C4D00BA4484 /* WIZAudioPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WIZAudioPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9BB934522001C4D00BA4484 /* WIZAudioPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZAudioPlayerTests.m; sourceTree = "<group>"; };
+		A9BB934722001C4D00BA4484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BB934C22001C4D00BA4484 /* WIZAudioPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WIZAudioPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9BB935022001C4D00BA4484 /* WIZAudioPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZAudioPlayerUITests.m; sourceTree = "<group>"; };
+		A9BB935222001C4D00BA4484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BB935E22001CA200BA4484 /* WIZPlayerMainScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZPlayerMainScreen.h; sourceTree = "<group>"; };
+		A9BB935F22001CA200BA4484 /* WIZPlayerMainScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZPlayerMainScreen.m; sourceTree = "<group>"; };
+		A9BB9366220021F900BA4484 /* WIZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WIZProgressView.h; sourceTree = "<group>"; };
+		A9BB9367220021F900BA4484 /* WIZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WIZProgressView.m; sourceTree = "<group>"; };
+		A9BB9368220021F900BA4484 /* WIZProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WIZProgressView.xib; sourceTree = "<group>"; };
+		A9BB936B2200221500BA4484 /* WIZEqualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZEqualizer.h; sourceTree = "<group>"; };
+		A9BB936C2200221500BA4484 /* WIZEqualizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZEqualizer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A9BB932622001C4B00BA4484 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB933E22001C4D00BA4484 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB934922001C4D00BA4484 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A9BB932022001C4B00BA4484 = {
+			isa = PBXGroup;
+			children = (
+				A9BB932B22001C4B00BA4484 /* WIZAudioPlayer */,
+				A9BB934422001C4D00BA4484 /* WIZAudioPlayerTests */,
+				A9BB934F22001C4D00BA4484 /* WIZAudioPlayerUITests */,
+				A9BB932A22001C4B00BA4484 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A9BB932A22001C4B00BA4484 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB932922001C4B00BA4484 /* WIZAudioPlayer.app */,
+				A9BB934122001C4D00BA4484 /* WIZAudioPlayerTests.xctest */,
+				A9BB934C22001C4D00BA4484 /* WIZAudioPlayerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A9BB932B22001C4B00BA4484 /* WIZAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB932C22001C4B00BA4484 /* AppDelegate.h */,
+				A9BB932D22001C4B00BA4484 /* AppDelegate.m */,
+				A9BB935E22001CA200BA4484 /* WIZPlayerMainScreen.h */,
+				A9BB935F22001CA200BA4484 /* WIZPlayerMainScreen.m */,
+				A9BB936122001F4000BA4484 /* SourceView */,
+				A9BB933222001C4B00BA4484 /* Main.storyboard */,
+				A9BB933522001C4D00BA4484 /* Assets.xcassets */,
+				A9BB933722001C4D00BA4484 /* LaunchScreen.storyboard */,
+				A9BB933A22001C4D00BA4484 /* Info.plist */,
+				A9BB933B22001C4D00BA4484 /* main.m */,
+			);
+			path = WIZAudioPlayer;
+			sourceTree = "<group>";
+		};
+		A9BB934422001C4D00BA4484 /* WIZAudioPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB934522001C4D00BA4484 /* WIZAudioPlayerTests.m */,
+				A9BB934722001C4D00BA4484 /* Info.plist */,
+			);
+			path = WIZAudioPlayerTests;
+			sourceTree = "<group>";
+		};
+		A9BB934F22001C4D00BA4484 /* WIZAudioPlayerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB935022001C4D00BA4484 /* WIZAudioPlayerUITests.m */,
+				A9BB935222001C4D00BA4484 /* Info.plist */,
+			);
+			path = WIZAudioPlayerUITests;
+			sourceTree = "<group>";
+		};
+		A9BB936122001F4000BA4484 /* SourceView */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB9365220021E900BA4484 /* WIZProgressView */,
+				A9BB936B2200221500BA4484 /* WIZEqualizer.h */,
+				A9BB936C2200221500BA4484 /* WIZEqualizer.m */,
+			);
+			path = SourceView;
+			sourceTree = "<group>";
+		};
+		A9BB9365220021E900BA4484 /* WIZProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				A9BB9366220021F900BA4484 /* WIZProgressView.h */,
+				A9BB9367220021F900BA4484 /* WIZProgressView.m */,
+				A9BB9368220021F900BA4484 /* WIZProgressView.xib */,
+			);
+			path = WIZProgressView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A9BB932822001C4B00BA4484 /* WIZAudioPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9BB935522001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayer" */;
+			buildPhases = (
+				A9BB932522001C4B00BA4484 /* Sources */,
+				A9BB932622001C4B00BA4484 /* Frameworks */,
+				A9BB932722001C4B00BA4484 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WIZAudioPlayer;
+			productName = WIZAudioPlayer;
+			productReference = A9BB932922001C4B00BA4484 /* WIZAudioPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A9BB934022001C4D00BA4484 /* WIZAudioPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9BB935822001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayerTests" */;
+			buildPhases = (
+				A9BB933D22001C4D00BA4484 /* Sources */,
+				A9BB933E22001C4D00BA4484 /* Frameworks */,
+				A9BB933F22001C4D00BA4484 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9BB934322001C4D00BA4484 /* PBXTargetDependency */,
+			);
+			name = WIZAudioPlayerTests;
+			productName = WIZAudioPlayerTests;
+			productReference = A9BB934122001C4D00BA4484 /* WIZAudioPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A9BB934B22001C4D00BA4484 /* WIZAudioPlayerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9BB935B22001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayerUITests" */;
+			buildPhases = (
+				A9BB934822001C4D00BA4484 /* Sources */,
+				A9BB934922001C4D00BA4484 /* Frameworks */,
+				A9BB934A22001C4D00BA4484 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9BB934E22001C4D00BA4484 /* PBXTargetDependency */,
+			);
+			name = WIZAudioPlayerUITests;
+			productName = WIZAudioPlayerUITests;
+			productReference = A9BB934C22001C4D00BA4484 /* WIZAudioPlayerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A9BB932122001C4B00BA4484 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = slamComp;
+				TargetAttributes = {
+					A9BB932822001C4B00BA4484 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					A9BB934022001C4D00BA4484 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = A9BB932822001C4B00BA4484;
+					};
+					A9BB934B22001C4D00BA4484 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = A9BB932822001C4B00BA4484;
+					};
+				};
+			};
+			buildConfigurationList = A9BB932422001C4B00BA4484 /* Build configuration list for PBXProject "WIZAudioPlayer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A9BB932022001C4B00BA4484;
+			productRefGroup = A9BB932A22001C4B00BA4484 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A9BB932822001C4B00BA4484 /* WIZAudioPlayer */,
+				A9BB934022001C4D00BA4484 /* WIZAudioPlayerTests */,
+				A9BB934B22001C4D00BA4484 /* WIZAudioPlayerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A9BB932722001C4B00BA4484 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9BB933922001C4D00BA4484 /* LaunchScreen.storyboard in Resources */,
+				A9BB933622001C4D00BA4484 /* Assets.xcassets in Resources */,
+				A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */,
+				A9BB933422001C4B00BA4484 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB933F22001C4D00BA4484 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB934A22001C4D00BA4484 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A9BB932522001C4B00BA4484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9BB9369220021F900BA4484 /* WIZProgressView.m in Sources */,
+				A9BB936022001CA200BA4484 /* WIZPlayerMainScreen.m in Sources */,
+				A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */,
+				A9BB933C22001C4D00BA4484 /* main.m in Sources */,
+				A9BB932E22001C4B00BA4484 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB933D22001C4D00BA4484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9BB934622001C4D00BA4484 /* WIZAudioPlayerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9BB934822001C4D00BA4484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9BB935122001C4D00BA4484 /* WIZAudioPlayerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A9BB934322001C4D00BA4484 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9BB932822001C4B00BA4484 /* WIZAudioPlayer */;
+			targetProxy = A9BB934222001C4D00BA4484 /* PBXContainerItemProxy */;
+		};
+		A9BB934E22001C4D00BA4484 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9BB932822001C4B00BA4484 /* WIZAudioPlayer */;
+			targetProxy = A9BB934D22001C4D00BA4484 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A9BB933222001C4B00BA4484 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9BB933322001C4B00BA4484 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A9BB933722001C4D00BA4484 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9BB933822001C4D00BA4484 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A9BB935322001C4D00BA4484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A9BB935422001C4D00BA4484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A9BB935622001C4D00BA4484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A9BB935722001C4D00BA4484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A9BB935922001C4D00BA4484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WIZAudioPlayer.app/WIZAudioPlayer";
+			};
+			name = Debug;
+		};
+		A9BB935A22001C4D00BA4484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WIZAudioPlayer.app/WIZAudioPlayer";
+			};
+			name = Release;
+		};
+		A9BB935C22001C4D00BA4484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WIZAudioPlayer;
+			};
+			name = Debug;
+		};
+		A9BB935D22001C4D00BA4484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K2N43EAJ64;
+				INFOPLIST_FILE = WIZAudioPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wizalx.WIZAudioPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WIZAudioPlayer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A9BB932422001C4B00BA4484 /* Build configuration list for PBXProject "WIZAudioPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9BB935322001C4D00BA4484 /* Debug */,
+				A9BB935422001C4D00BA4484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9BB935522001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9BB935622001C4D00BA4484 /* Debug */,
+				A9BB935722001C4D00BA4484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9BB935822001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9BB935922001C4D00BA4484 /* Debug */,
+				A9BB935A22001C4D00BA4484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9BB935B22001C4D00BA4484 /* Build configuration list for PBXNativeTarget "WIZAudioPlayerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9BB935C22001C4D00BA4484 /* Debug */,
+				A9BB935D22001C4D00BA4484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A9BB932122001C4B00BA4484 /* Project object */;
+}
