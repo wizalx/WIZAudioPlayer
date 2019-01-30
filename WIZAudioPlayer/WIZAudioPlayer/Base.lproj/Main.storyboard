@@ -20,16 +20,24 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-kO-v1i" customClass="WIZEqualizer">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.8567402001489629" green="0.73161754311875338" blue="0.62389219755329273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csI-ZP-Z82">
-                                <rect key="frame" x="164.5" y="558" width="46" height="46"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-xM-Yhf">
+                                <rect key="frame" x="16" y="558" width="343" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="Yd6-BU-g8N"/>
-                                    <constraint firstAttribute="width" constant="46" id="ouI-Za-UPF"/>
+                                    <constraint firstAttribute="height" constant="21" id="XhV-0h-4cU"/>
                                 </constraints>
-                                <state key="normal" title="PLAY">
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csI-ZP-Z82">
+                                <rect key="frame" x="164.5" y="597" width="46" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="9Vj-EI-ZKz"/>
+                                    <constraint firstAttribute="height" constant="46" id="ibv-yW-OxD"/>
+                                </constraints>
+                                <state key="normal" image="play">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -37,12 +45,15 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97326343911917101" green="0.8313355604936562" blue="0.71473403151150317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="top" secondItem="DTf-kd-IXO" secondAttribute="top" id="GUy-Bo-b83"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" id="JMv-ZH-mB2"/>
-                            <constraint firstItem="csI-ZP-Z82" firstAttribute="centerX" secondItem="DTf-kd-IXO" secondAttribute="centerX" id="NCv-FR-nJ2"/>
-                            <constraint firstItem="csI-ZP-Z82" firstAttribute="top" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="8" id="e65-Au-BZZ"/>
+                            <constraint firstItem="csI-ZP-Z82" firstAttribute="top" secondItem="Bdk-xM-Yhf" secondAttribute="bottom" constant="18" id="Mkw-H4-Cjg"/>
+                            <constraint firstItem="csI-ZP-Z82" firstAttribute="centerX" secondItem="DTf-kd-IXO" secondAttribute="centerX" id="PrC-SE-k47"/>
+                            <constraint firstItem="Bdk-xM-Yhf" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" constant="16" id="TLe-wk-Q7K"/>
+                            <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="Bdk-xM-Yhf" secondAttribute="trailing" constant="16" id="Vp9-pE-hfJ"/>
+                            <constraint firstItem="Bdk-xM-Yhf" firstAttribute="top" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="8" id="aWa-Yc-gED"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="117" id="fBc-DT-K6O"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="trailing" secondItem="QA9-zH-3Ij" secondAttribute="trailing" id="yeJ-qW-90A"/>
                         </constraints>
@@ -50,6 +61,8 @@
                     </view>
                     <connections>
                         <outlet property="equalizerView" destination="s8r-kO-v1i" id="Xn5-Pn-qBG"/>
+                        <outlet property="playStopBtn" destination="csI-ZP-Z82" id="EM7-Tf-b7L"/>
+                        <outlet property="trackName" destination="Bdk-xM-Yhf" id="0h0-qp-c82"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hM6-gB-zau" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -57,4 +70,7 @@
             <point key="canvasLocation" x="144.80000000000001" y="31.934032983508249"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="play" width="67.5" height="67.5"/>
+    </resources>
 </document>

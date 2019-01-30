@@ -12,12 +12,17 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate>
+{
+    bool playNow;
+}
 
 @property (weak, nonatomic) IBOutlet WIZEqualizer *equalizerView;
 
 
 @property (nonatomic, strong) WIZEqualizer *equalizer;
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
+@property (weak, nonatomic) IBOutlet UIButton *playStopBtn;
+@property (weak, nonatomic) IBOutlet UILabel *trackName;
 
 @end
 
@@ -27,24 +32,43 @@
     [super viewDidLoad];
     self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:20];
     self.audioProcessor.delegate = self;
+    playNow = NO;
 }
 
 - (IBAction)tapPlay:(id)sender {
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Sum 41" withExtension:@"mp3"];
+    if (!playNow) {
+        playNow = YES;
+        
+        self.trackName.text = @"Sum 41";
+        
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Sum 41" withExtension:@"mp3"];
+        
+        AVAudioFile *file = [[AVAudioFile alloc] initForReading:url error:nil];
+        
+        AVAudioFormat *format = file.processingFormat;
+        AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
+        
+        AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
+        
+        [file readIntoBuffer:buffer error:nil];
+        
+        [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+        //    [_player scheduleFile:file atTime:nil completionHandler:nil];
+        [self.audioProcessor.player play];
+        
+        [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+    } else {
+        playNow = NO;
+        
+        [self.audioProcessor.player stop];
+        [self.audioProcessor.player reset];
+        
+        self.trackName.text = @"empty";
+        
+         [_playStopBtn setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    }
     
-    AVAudioFile *file = [[AVAudioFile alloc] initForReading:url error:nil];
-    
-    AVAudioFormat *format = file.processingFormat;
-    AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
-    
-    AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
-    
-    [file readIntoBuffer:buffer error:nil];
-    
-    [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
-    //    [_player scheduleFile:file atTime:nil completionHandler:nil];
-    [self.audioProcessor.player play];
 }
 
 #pragma mark - audio processor delegate
