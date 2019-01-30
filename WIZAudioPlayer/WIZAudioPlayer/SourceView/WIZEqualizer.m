@@ -61,6 +61,8 @@
         progressView.verticalLine = YES;
         progressView.reverseFill = YES;
         
+        progressView.distanceSize = 0;
+        
         progressView.fillColor = randColor;
         
         progressView.cleanEmpty = YES;
@@ -80,7 +82,7 @@
     
     NSInteger minCount = MIN(values.count, _countLines);
     
-    for (int pos = 0; pos<minCount; pos++)
+    for (NSInteger pos = minCount-1; pos>=0; pos--)
     {
         //experimental data :)
         self.audioLines[pos].percent = 75 - fabs(([values[pos] floatValue]+5)/0.45);

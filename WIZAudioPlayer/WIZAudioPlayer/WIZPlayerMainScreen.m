@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:10];
+    self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:20];
     self.audioProcessor.delegate = self;
 }
 
@@ -52,7 +52,7 @@
 -(void)WIZAudioProcessorGetValues:(NSArray *)values
 {
     if (!_equalizer) {
-        self.equalizer = [[WIZEqualizer alloc] initWithFrame:_equalizerView.frame countLines:10 countTop:10];
+        self.equalizer = [[WIZEqualizer alloc] initWithFrame:_equalizerView.frame countLines:20 countTop:30];
         [_equalizerView addSubview:self.equalizer];
     }
     

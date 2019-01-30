@@ -8,19 +8,12 @@
 
 #import "WIZProgressView.h"
 
-typedef enum
-{
-    typeEmpty = 0,
-    typeFill
-} typeCircle;
-
 
 @interface WIZProgressView() <UIGestureRecognizerDelegate>
 {
     float widthItem;
     float diametrCircle;
     float distanceBetweenCircle;
-    NSMutableArray <NSNumber*> * circles;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -63,7 +56,7 @@ typedef enum
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(0.01 * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self setCountLoaded:self->_countLoaded];
+        [self reloadView];
     });
 }
 
@@ -88,17 +81,8 @@ typedef enum
     _distanceSize = 15.0;
     _verticalLine = NO;
     
-    //init circles array
-    
-    circles = [NSMutableArray arrayWithCapacity:0];
-    
-    NSMutableArray *tempEmptyArray = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < _countCircle; i++)
-        [tempEmptyArray addObject:@(typeEmpty)];
-    
-    circles = [NSMutableArray arrayWithArray:tempEmptyArray];
-    
-    [self updateView];
+    //create view
+    [self reloadView];
 }
 
 #pragma mark - setters
@@ -110,7 +94,7 @@ typedef enum
     else
         _countCircle = 1;
     
-    [self updateView];
+    [self reloadView];
 }
 
 
@@ -121,28 +105,6 @@ typedef enum
         _countLoaded = countLoaded;
     else
         _countLoaded = _countCircle;
-    
-    //format array
-    NSMutableArray *tempEmptyArray = [NSMutableArray arrayWithCapacity:0];
-    
-    for (int i = 0; i < self.countCircle; i++)
-    {
-        if (!_reverseFill) {
-            if (i < countLoaded)
-                [tempEmptyArray addObject:@(typeFill)];
-            else
-                [tempEmptyArray addObject:@(typeEmpty)];
-        } else {
-            if (i < self.countCircle-countLoaded) {
-                [tempEmptyArray addObject:@(typeEmpty)];
-            } else {
-                [tempEmptyArray addObject:@(typeFill)];
-            }
-        }
-        
-    }
-    
-    circles = [NSMutableArray arrayWithArray:tempEmptyArray];
     
     [self updateView];
     
@@ -159,49 +121,49 @@ typedef enum
 -(void)setFillColor:(UIColor *)fillColor
 {
     _fillColor = fillColor;
-    [self updateView];
+    [self reloadView];
 }
 
 -(void)setCleanEmpty:(BOOL)cleanEmpty
 {
     _cleanEmpty = cleanEmpty;
-    [self updateView];
+    [self reloadView];
 }
 
 -(void)setDistanceSize:(float)distanceSize
 {
     _distanceSize = distanceSize;
-    [self setCountLoaded:_countLoaded];
+    [self reloadView];
 }
 
 -(void)setEmptyImage:(UIImage *)emptyImage
 {
     _emptyImage = emptyImage;
-    [self updateView];
+    [self reloadView];
 }
 
 -(void)setFillImage:(UIImage *)fillImage
 {
     _fillImage = fillImage;
-    [self updateView];
+    [self reloadView];
 }
 
 -(void)setVerticalLine:(BOOL)verticalLine
 {
     _verticalLine = verticalLine;
-    [self updateView];
+    [self reloadView];
 }
 
 -(void)setReverseFill:(BOOL)reverseFill
 {
     _reverseFill = reverseFill;
     
-    [self setCountLoaded:_countLoaded];
+    [self updateView];
 }
 
-#pragma mark - update
+#pragma mark - create
 
--(void)updateView
+-(void)reloadView
 {
     //remove all objects on view
     for (UIImageView* view in self.subviews) {
@@ -212,14 +174,13 @@ typedef enum
     
     //calculate positions
     if (!_verticalLine)
-        [self updateHorizontalView];
+        [self createHorizontalView];
     else
-        [self updateVerticalView];
-    
+        [self createVerticalView];
     
 }
 
--(void)updateHorizontalView
+-(void)createHorizontalView
 {
     //separate view
     widthItem =  self.bounds.size.width / _countCircle;
@@ -232,44 +193,44 @@ typedef enum
     
     distanceBetweenCircle = widthItem - diametrCircle;
     float yPosition = (self.frame.size.height - diametrCircle)/2;
-    for (int i = 0; i < circles.count; i++) {
+    for (int i = 0; i < _countCircle; i++) {
         float xPosition = ((distanceBetweenCircle/2)*(1+i*2))+diametrCircle*i;
         float diametrEdit = diametrCircle;
         float yEdit = yPosition;
         float xEdit = xPosition;
         
-        UIImageView *circleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
         
-        circleView.tag = i + 1;
+        //create empty elementh
+        UIImageView *emptyCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
+        emptyCircleView.tag = ((i + 1)*10)+1;
         
-        typeCircle type = [circles[i] intValue];
-        
-        switch (type) {
-            case typeEmpty:
-            {
-                if (!_emptyImage) {
-                    circleView = [self emptyCircleViewFromView:circleView];
-                } else {
-                    circleView = [self emptyImageViewFromView:circleView];
-                }
-            }
-                break;
-            case typeFill:
-                if (!_fillImage) {
-                    circleView = [self fillCircleViewFromView:circleView];
-                } else {
-                    circleView = [self fillImageViewFromView:circleView];
-                }
-                break;
-            default:
-                break;
+        if (!_emptyImage) {
+            emptyCircleView = [self emptyCircleViewFromView:emptyCircleView];
+        } else {
+            emptyCircleView = [self emptyImageViewFromView:emptyCircleView];
         }
         
-        [self addSubview:circleView];
+        [self addSubview:emptyCircleView];
+        
+        //create fill elementh
+        UIImageView *fillCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
+        fillCircleView.tag = ((i + 1)*10)+2;
+        
+        if (!_fillImage) {
+            fillCircleView = [self fillCircleViewFromView:fillCircleView];
+        } else {
+            fillCircleView = [self fillImageViewFromView:fillCircleView];
+        }
+        
+        fillCircleView.hidden = YES;
+        
+        [self addSubview:fillCircleView];
     }
+    
+    [self updateView];
 }
 
--(void)updateVerticalView
+-(void)createVerticalView
 {
     //separate view
     widthItem =  self.bounds.size.height / _countCircle;
@@ -281,44 +242,78 @@ typedef enum
         diametrCircle = self.bounds.size.width;
     
     distanceBetweenCircle = widthItem - diametrCircle;
-    
     float xPosition = (self.frame.size.width - diametrCircle)/2;
-    for (int i = 0; i < circles.count; i++) {
+    for (int i = 0; i < _countCircle; i++) {
         float yPosition = ((distanceBetweenCircle/2)*(1+i*2))+diametrCircle*i;
         float diametrEdit = diametrCircle;
         float yEdit = yPosition;
         float xEdit = xPosition;
         
-        UIImageView *circleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
+        //create empty elementh
+        UIImageView *emptyCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
+        emptyCircleView.tag = ((i + 1)*10)+1;
         
-        circleView.tag = i + 1;
-        
-        typeCircle type = [circles[i] intValue];
-        
-        switch (type) {
-            case typeEmpty:
-            {
-                if (!_emptyImage) {
-                    circleView = [self emptyCircleViewFromView:circleView];
-                } else {
-                    circleView = [self emptyImageViewFromView:circleView];
-                }
-            }
-                break;
-            case typeFill:
-                if (!_fillImage) {
-                    circleView = [self fillCircleViewFromView:circleView];
-                } else {
-                    circleView = [self fillImageViewFromView:circleView];
-                }
-                break;
-            default:
-                break;
+        if (!_emptyImage) {
+            emptyCircleView = [self emptyCircleViewFromView:emptyCircleView];
+        } else {
+            emptyCircleView = [self emptyImageViewFromView:emptyCircleView];
         }
         
-        [self addSubview:circleView];
+        [self addSubview:emptyCircleView];
+        
+        //create fill elementh
+        UIImageView *fillCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(xEdit, yEdit, diametrEdit, diametrEdit)];
+        fillCircleView.tag = ((i + 1)*10)+2;
+        
+        if (!_fillImage) {
+            fillCircleView = [self fillCircleViewFromView:fillCircleView];
+        } else {
+            fillCircleView = [self fillImageViewFromView:fillCircleView];
+        }
+        
+        fillCircleView.hidden = YES;
+        
+        [self addSubview:fillCircleView];
     }
+    
+    [self updateView];
 }
+
+#pragma mark - update
+
+-(void)updateView
+{
+    //создаем для горизонтального и вертикального прямого
+    
+    for (int i = 0; i < _countCircle; i++) {
+        UIImageView *emptyCirlcleView = [self viewWithTag:((i + 1)*10)+1];
+        UIImageView *fillCircleView = [self viewWithTag:((i + 1)*10)+2];
+        
+        if (!_reverseFill) {
+            if (i < _countLoaded) {
+                emptyCirlcleView.hidden = YES;
+                fillCircleView.hidden = NO;
+            } else {
+                emptyCirlcleView.hidden = NO;
+                fillCircleView.hidden = YES;
+            }
+        } else {
+            if (i < _countCircle - _countLoaded)
+            {
+                emptyCirlcleView.hidden = NO;
+                fillCircleView.hidden = YES;
+            } else {
+                emptyCirlcleView.hidden = YES;
+                fillCircleView.hidden = NO;
+            }
+        }
+        
+    }
+    
+    
+}
+
+
 
 #pragma mark - Create objects
 
