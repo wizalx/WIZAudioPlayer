@@ -49,7 +49,7 @@
                         <viewLayoutGuide key="safeArea" id="QA9-zH-3Ij"/>
                     </view>
                     <connections>
-                        <outlet property="equalizer" destination="s8r-kO-v1i" id="ijp-6n-HAT"/>
+                        <outlet property="equalizerView" destination="s8r-kO-v1i" id="Xn5-Pn-qBG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hM6-gB-zau" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -88,9 +88,9 @@
             
         }
         
-//        dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate WIZAudioProcessorGetValues:[self.linesPosition copy]];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate WIZAudioProcessorGetValues:[self.linesPosition copy]];
+        });
     }];
     
     NSError* error;

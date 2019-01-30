@@ -12,7 +12,11 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate>
-@property (strong, nonatomic) IBOutlet WIZEqualizer *equalizer;
+
+@property (weak, nonatomic) IBOutlet WIZEqualizer *equalizerView;
+
+
+@property (nonatomic, strong) WIZEqualizer *equalizer;
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
 
 @end
@@ -21,10 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.equalizer = [[WIZEqualizer alloc] initWithFrame:_equalizer.frame countLines:10 countTop:10];
     self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:10];
-    
+    self.audioProcessor.delegate = self;
 }
 
 - (IBAction)tapPlay:(id)sender {
@@ -49,6 +51,11 @@
 
 -(void)WIZAudioProcessorGetValues:(NSArray *)values
 {
+    if (!_equalizer) {
+        self.equalizer = [[WIZEqualizer alloc] initWithFrame:_equalizerView.frame countLines:10 countTop:10];
+        [_equalizerView addSubview:self.equalizer];
+    }
+    
     self.equalizer.values = values;
 }
 
