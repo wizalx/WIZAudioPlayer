@@ -26,7 +26,6 @@ typedef enum
 
 @interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate, MPMediaPickerControllerDelegate>
 {
-    bool playNow;
     float currentTrackSecond;
     MPMediaPickerController *mediaPicker;
     NSArray <WIZMusicTrack*> *playlist;
@@ -40,6 +39,7 @@ typedef enum
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
 @property (weak, nonatomic) IBOutlet UIButton *playStopBtn;
 @property (weak, nonatomic) IBOutlet UILabel *trackName;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @property (weak, nonatomic) WIZMusicTrack *currentTrack;
 @property (nonatomic) kPlayerState playerState;
@@ -52,11 +52,16 @@ typedef enum
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:20];
     self.audioProcessor.delegate = self;
-    playNow = NO;
+
     startAfterRestart = NO;
     _playerState = kPlayerStateStop;
+    
+    [self.slider setThumbImage:[self resizeImage:[UIImage imageNamed:@"sliderPoint"] withSize:CGSizeMake(15.0, 15.0)] forState:UIControlStateNormal];
+    
+    [self.slider setContinuous:NO];
 }
 
 #pragma mark - control btn
@@ -106,7 +111,7 @@ typedef enum
     
     [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
     if (startAfterRestart) {
-        
+        NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
         unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
         unsigned long int lengthSamples = file.length-startSample;
         
@@ -116,7 +121,12 @@ typedef enum
         startAfterRestart = NO;
     } else {
         [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+        self.slider.maximumValue = capacity/44100;
+        self.slider.value = 0;
     }
+    
+    self.slider.minimumValue = 0;
+    
     
     [self.audioProcessor.player play];
     [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
@@ -149,6 +159,18 @@ typedef enum
     [self playNewTrack];
 }
 
+#pragma mark - slider
+
+- (IBAction)valueCanged:(id)sender {
+    currentTrackSecond = self.slider.value;
+    NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
+    [self WIZAudioProcessorResetEngine];
+}
+
+- (IBAction)sliderTouchDown:(id)sender {
+    [self tapPlay:nil];
+}
+
 #pragma mark - audio processor delegate
 
 -(void)WIZAudioProcessorGetValues:(NSArray *)values
@@ -171,7 +193,9 @@ typedef enum
 
 -(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
 {
+    [self.slider setValue:currentSecond];
     currentTrackSecond = currentSecond;
+    NSLog(@"cts = %.2f",currentTrackSecond);
 }
 
 #pragma mark - get music from iTunes
@@ -240,6 +264,27 @@ typedef enum
             [self playNewTrack];
         };
     }
+}
+
+#pragma mark - helper
+
+-(UIImage*)resizeImage:(UIImage*)image withSize:(CGSize)size
+{
+    UIImage *tempImage = nil;
+    UIGraphicsBeginImageContext(size);
+    
+    CGRect thumbnailRect = CGRectMake(0, 0, 0, 0);
+    thumbnailRect.origin = CGPointMake(0.0,0.0);
+    thumbnailRect.size.width  = size.width;
+    thumbnailRect.size.height = size.height;
+    
+    [image drawInRect:thumbnailRect];
+    
+    tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return tempImage;
 }
 
 
