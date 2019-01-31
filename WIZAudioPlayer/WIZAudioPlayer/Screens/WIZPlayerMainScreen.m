@@ -17,6 +17,13 @@
 #import "../Resources/WIZPlayerEssentials.h"
 #import "WIZPlayerPlaylistScreen.h"
 
+typedef enum
+{
+    kPlayerStatePlay,
+    kPlayerStatePause,
+    kPlayerStateStop
+} kPlayerState;
+
 @interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate, MPMediaPickerControllerDelegate>
 {
     bool playNow;
@@ -24,7 +31,7 @@
     MPMediaPickerController *mediaPicker;
     NSArray <WIZMusicTrack*> *playlist;
     bool startAfterRestart;
-    
+    NSInteger currentIndex;
 }
 
 @property (weak, nonatomic) IBOutlet WIZEqualizer *equalizerView;
@@ -35,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *trackName;
 
 @property (weak, nonatomic) WIZMusicTrack *currentTrack;
-
+@property (nonatomic) kPlayerState playerState;
 
 @property (nonatomic) UIView *spinnerView;
 
@@ -49,63 +56,97 @@
     self.audioProcessor.delegate = self;
     playNow = NO;
     startAfterRestart = NO;
+    _playerState = kPlayerStateStop;
 }
+
+#pragma mark - control btn
 
 - (IBAction)tapPlay:(id)sender {
     
-    if (!playNow && _currentTrack) {
-        playNow = YES;
-        
-        self.trackName.text = [NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title];
-        
-        AVAudioFile *file = [[AVAudioFile alloc] initForReading:_currentTrack.url error:nil];
-        
-        AVAudioFormat *format = file.processingFormat;
-        AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
-        
-        AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
-        
-        [file readIntoBuffer:buffer error:nil];
-        
-        [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
-        if (startAfterRestart) {
-            
-            
-//            AVAudioFramePosition startingFrame = currentTrackSecond * file.processingFormat.sampleRate;
-//            AVAudioFrameCount frameCount = (AVAudioFrameCount)(file.length - startingFrame);
-            
-//            [self.audioProcessor.player scheduleSegment:file
-//                       startingFrame:startingFrame
-//                          frameCount:frameCount
-//                              atTime:self.audioProcessor.player.lastRenderTime
-//                   completionHandler:^{
-//                       NSLog(@"done playing");//actually done scheduling.
-//                   }];
-            
-            unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
-            unsigned long int lengthSamples = file.length-startSample;
-            
-            [self.audioProcessor.player scheduleSegment:file startingFrame:startSample frameCount:(AVAudioFrameCount)lengthSamples atTime:nil completionHandler:^{
-                // do something (pause player)
-            }];
-            startAfterRestart = NO;
-        } else {
-            [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+    switch (_playerState) {
+        case kPlayerStatePlay:
+        {
+            [self.audioProcessor.player pause];
+            [_playStopBtn setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+            _playerState = kPlayerStatePause;
         }
-        
-        [self.audioProcessor.player play];
-        [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
-    } else {
-        playNow = NO;
-        
-        [self.audioProcessor.player stop];
-        [self.audioProcessor.player reset];
-        
-        self.trackName.text = @"- empty -";
-        
-         [_playStopBtn setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+            break;
+        case kPlayerStateStop:
+        {
+            if (_currentTrack)
+                [self playNewTrack];
+            break;
+        }
+        case kPlayerStatePause:
+        {
+            [self.audioProcessor.player play];
+            [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+            _playerState = kPlayerStatePlay;
+        }
+        default:
+            break;
     }
     
+}
+
+-(void)playNewTrack
+{
+    _playerState = kPlayerStatePlay;
+    
+    self.trackName.text = [NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title];
+    
+    AVAudioFile *file = [[AVAudioFile alloc] initForReading:_currentTrack.url error:nil];
+    
+    AVAudioFormat *format = file.processingFormat;
+    AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
+    
+    AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
+    
+    [file readIntoBuffer:buffer error:nil];
+    
+    [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+    if (startAfterRestart) {
+        
+        unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
+        unsigned long int lengthSamples = file.length-startSample;
+        
+        [self.audioProcessor.player scheduleSegment:file startingFrame:startSample frameCount:(AVAudioFrameCount)lengthSamples atTime:nil completionHandler:^{
+            // do something (pause player)
+        }];
+        startAfterRestart = NO;
+    } else {
+        [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+    }
+    
+    [self.audioProcessor.player play];
+    [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+}
+
+- (IBAction)nextTrack:(id)sender {
+    
+    [self.audioProcessor.player stop];
+    [self.audioProcessor.player reset];
+    if (currentIndex+1 >= playlist.count) {
+        currentIndex = 0;
+        self.currentTrack = playlist[0];
+    } else {
+        currentIndex++;
+        self.currentTrack = playlist[currentIndex];
+    }
+    [self playNewTrack];
+}
+
+- (IBAction)previousTrack:(id)sender {
+    [self.audioProcessor.player stop];
+    [self.audioProcessor.player reset];
+    if (currentIndex-1 < 0) {
+        currentIndex = playlist.count - 1;
+        self.currentTrack = playlist[currentIndex];
+    } else {
+        currentIndex--;
+        self.currentTrack = playlist[currentIndex];
+    }
+    [self playNewTrack];
 }
 
 #pragma mark - audio processor delegate
@@ -122,11 +163,10 @@
 
 -(void)WIZAudioProcessorResetEngine
 {
-    playNow = NO;
     [self.audioProcessor.player pause];
     [self.audioProcessor.player reset];
     startAfterRestart = YES;
-    [self tapPlay:nil];
+    [self playNewTrack];
 }
 
 -(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
@@ -178,8 +218,9 @@
         
         
         self.currentTrack = playlist[0];
+        currentIndex = 0;
 
-        [self tapPlay:nil];
+        [self playNewTrack];
         
         return;
  
@@ -196,8 +237,7 @@
             self.currentTrack = track;
             [self.audioProcessor.player stop];
             [self.audioProcessor.player reset];
-            self->playNow = NO;
-            [self tapPlay:nil];
+            [self playNewTrack];
         };
     }
 }
