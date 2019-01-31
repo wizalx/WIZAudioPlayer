@@ -104,16 +104,18 @@
 -(void)animateBackground
 {
     CGFloat red   = 255/255.0;
-    CGFloat blu   = 87/255.0;
-    CGFloat green = 81/255.0;
+    CGFloat green = 87/255.0;
+    CGFloat blu   = 81/255.0;
+    
     UIColor *bangColor = [UIColor colorWithRed:red green:green blue:blu alpha:1.0];
     self.layer.backgroundColor = bangColor.CGColor;
     
     [UIView animateWithDuration:0.3 animations:^{
         
         CGFloat red1   = 218/255.0;
-        CGFloat blu1   = 187/255.0;
-        CGFloat green1 = 159/255.0;
+        CGFloat green1 = 187/255.0;
+        CGFloat blu1   = 159/255.0;
+        
         UIColor *bgColor = [UIColor colorWithRed:red1 green:green1 blue:blu1 alpha:1.0];
         
         self.layer.backgroundColor = bgColor.CGColor;
