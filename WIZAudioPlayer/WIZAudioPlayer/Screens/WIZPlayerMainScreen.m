@@ -20,8 +20,10 @@
 @interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate, MPMediaPickerControllerDelegate>
 {
     bool playNow;
+    float currentTrackSecond;
     MPMediaPickerController *mediaPicker;
     NSArray <WIZMusicTrack*> *playlist;
+    bool startAfterRestart;
     
 }
 
@@ -46,6 +48,7 @@
     self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:20];
     self.audioProcessor.delegate = self;
     playNow = NO;
+    startAfterRestart = NO;
 }
 
 - (IBAction)tapPlay:(id)sender {
@@ -65,9 +68,32 @@
         [file readIntoBuffer:buffer error:nil];
         
         [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
-        //    [_player scheduleFile:file atTime:nil completionHandler:nil];
-        [self.audioProcessor.player play];
+        if (startAfterRestart) {
+            
+            
+//            AVAudioFramePosition startingFrame = currentTrackSecond * file.processingFormat.sampleRate;
+//            AVAudioFrameCount frameCount = (AVAudioFrameCount)(file.length - startingFrame);
+            
+//            [self.audioProcessor.player scheduleSegment:file
+//                       startingFrame:startingFrame
+//                          frameCount:frameCount
+//                              atTime:self.audioProcessor.player.lastRenderTime
+//                   completionHandler:^{
+//                       NSLog(@"done playing");//actually done scheduling.
+//                   }];
+            
+            unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
+            unsigned long int lengthSamples = file.length-startSample;
+            
+            [self.audioProcessor.player scheduleSegment:file startingFrame:startSample frameCount:(AVAudioFrameCount)lengthSamples atTime:nil completionHandler:^{
+                // do something (pause player)
+            }];
+            startAfterRestart = NO;
+        } else {
+            [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
+        }
         
+        [self.audioProcessor.player play];
         [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
     } else {
         playNow = NO;
@@ -92,6 +118,20 @@
     }
     
     self.equalizer.values = values;
+}
+
+-(void)WIZAudioProcessorResetEngine
+{
+    playNow = NO;
+    [self.audioProcessor.player pause];
+    [self.audioProcessor.player reset];
+    startAfterRestart = YES;
+    [self tapPlay:nil];
+}
+
+-(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
+{
+    currentTrackSecond = currentSecond;
 }
 
 #pragma mark - get music from iTunes

@@ -15,9 +15,12 @@
 @property (nonatomic) NSMutableArray <NSNumber*> *linesPosition;
 @property (nonatomic) NSInteger audioLinesCount;
 
+
 @end
 
 @implementation WIZAudioProcessor
+
+#pragma mark - init and run
 
 -(instancetype)initWithCountLines:(int)lines
 {
@@ -25,6 +28,8 @@
     if (self) {
         self.audioLinesCount = lines;
         [self runProcessor];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioHardwareRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
     }
     return self;
 }
@@ -53,6 +58,13 @@
     
     //get lines
     [mixer installTapOnBus:0 bufferSize:1024 format:[mixer outputFormatForBus:0] block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+        if ([self.player playerTimeForNodeTime:self.player.lastRenderTime]) {
+            AVAudioTime *audioTime = [self.player playerTimeForNodeTime:self.player.lastRenderTime];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate WIZAudioProcessorCurrentSecond:audioTime.sampleTime / audioTime.sampleRate];
+            });
+        }
+        
         
         [buffer setFrameLength:1024];
         UInt32 inNumberFrames = buffer.frameLength;
@@ -97,6 +109,23 @@
     if (![self.engine startAndReturnError:&error]) {
         NSLog(@"RUN ENGINE ERROR! %@",error.description);
     }
+}
+
+#pragma mark - change devices
+
+- (void)audioHardwareRouteChanged:(NSNotification *)notification {
+    
+    NSError *sessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
+    [[AVAudioSession sharedInstance] setActive:YES error:&sessionError];
+    [self.engine reset];
+    NSError* error;
+    if (![self.engine startAndReturnError:&error]) {
+        NSLog(@"RUN ENGINE ERROR! %@",error.description);
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate WIZAudioProcessorResetEngine];
+    });
 }
 
 @end
