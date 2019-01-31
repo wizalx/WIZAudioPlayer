@@ -11,9 +11,14 @@
 #import "Processors/WIZAudioProcessor.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AudioToolbox/AudioToolbox.h>
+
+@interface WIZPlayerMainScreen () <WIZAudioProcessorDelegate, MPMediaPickerControllerDelegate>
 {
     bool playNow;
+    MPMediaPickerController *mediaPicker;
+    
 }
 
 @property (weak, nonatomic) IBOutlet WIZEqualizer *equalizerView;
@@ -23,6 +28,10 @@
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
 @property (weak, nonatomic) IBOutlet UIButton *playStopBtn;
 @property (weak, nonatomic) IBOutlet UILabel *trackName;
+@property (nonatomic) NSURL *urlAudioFile;
+@property (nonatomic) NSString *audioTitle;
+
+@property (nonatomic) UIView *spinnerView;
 
 @end
 
@@ -37,14 +46,12 @@
 
 - (IBAction)tapPlay:(id)sender {
     
-    if (!playNow) {
+    if (!playNow && self.urlAudioFile) {
         playNow = YES;
         
-        self.trackName.text = @"Sum 41";
+        self.trackName.text = self.audioTitle;
         
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Sum 41" withExtension:@"mp3"];
-        
-        AVAudioFile *file = [[AVAudioFile alloc] initForReading:url error:nil];
+        AVAudioFile *file = [[AVAudioFile alloc] initForReading:_urlAudioFile error:nil];
         
         AVAudioFormat *format = file.processingFormat;
         AVAudioFrameCount capacity = (AVAudioFrameCount)file.length;
@@ -64,7 +71,7 @@
         [self.audioProcessor.player stop];
         [self.audioProcessor.player reset];
         
-        self.trackName.text = @"empty";
+        self.trackName.text = @"- empty -";
         
          [_playStopBtn setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     }
@@ -83,5 +90,53 @@
     self.equalizer.values = values;
 }
 
+#pragma mark - get music from iTunes
+
+- (IBAction)getAudioList:(id)sender {
+    mediaPicker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
+    mediaPicker.delegate = self;
+    mediaPicker.allowsPickingMultipleItems = YES; // this is the default
+    mediaPicker.prompt = @"Select songs to play";
+    [self presentViewController:mediaPicker animated:YES completion:nil];
+}
+
+#pragma mark - MPMediaPicker delegate
+
+- (void)mediaPicker: (MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
+    
+    //dismiss picker
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+    
+//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    self.spinnerView = [[UIView alloc] initWithFrame:self.view.frame];
+//    self.spinnerView.backgroundColor = [UIColor whiteColor];
+//    self.spinnerView.alpha = 0.5;
+//    [spinner setCenter:self.view.center];
+//    [self.spinnerView addSubview:spinner];
+//    [self.view addSubview:self.spinnerView];
+    
+//    [spinner startAnimating];
+    
+    
+    // get selected item and play
+    if (mediaItemCollection) {
+        MPMediaItem *song = [[mediaItemCollection items] objectAtIndex:0];
+        
+        if (!song)
+            return;
+        
+        self.urlAudioFile = [song valueForProperty:MPMediaItemPropertyAssetURL];
+        
+        self.audioTitle = [NSString stringWithFormat:@"%@ - %@",[song valueForProperty:MPMediaItemPropertyArtist],[song valueForProperty:MPMediaItemPropertyTitle]];
+
+        [self tapPlay:nil];
+        
+        return;
+        
+        
+       
+        
+    }
+}
 
 @end

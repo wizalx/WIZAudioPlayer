@@ -65,7 +65,7 @@
         progressView.distanceSize = 0;
         
         progressView.fillColor = randColor;
-        
+        progressView.userInteractionEnabled = NO;
         progressView.cleanEmpty = YES;
         
         [self addSubview:progressView];
@@ -92,7 +92,7 @@
         if (currentPerc>57)
             levelHight++;
     }
-    NSLog(@"levelHight = %li",(long)levelHight);
+//    NSLog(@"levelHight = %li",(long)levelHight);
     if (levelHight == minCount-1) {
         [self animateBackground];
     }

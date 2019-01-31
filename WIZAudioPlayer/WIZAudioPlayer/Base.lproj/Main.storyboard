@@ -22,15 +22,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                 <color key="backgroundColor" red="0.8567402001489629" green="0.73161754311875338" blue="0.62389219755329273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-xM-Yhf">
-                                <rect key="frame" x="16" y="558" width="343" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="XhV-0h-4cU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csI-ZP-Z82">
                                 <rect key="frame" x="164.5" y="597" width="46" height="46"/>
                                 <constraints>
@@ -44,6 +35,26 @@
                                     <action selector="tapPlay:" destination="NyY-jH-LDv" eventType="touchUpInside" id="OMK-3F-lbP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- empty -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-xM-Yhf">
+                                <rect key="frame" x="16" y="558" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="XhV-0h-4cU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMm-Gs-ZES">
+                                <rect key="frame" x="16" y="608" width="39" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="39" id="4aY-oT-Nm6"/>
+                                    <constraint firstAttribute="height" constant="39" id="Wfq-1G-U0A"/>
+                                </constraints>
+                                <state key="normal" image="itunes"/>
+                                <connections>
+                                    <action selector="getAudioList:" destination="NyY-jH-LDv" eventType="touchUpInside" id="Vfx-Mw-FIx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97326343911917101" green="0.8313355604936562" blue="0.71473403151150317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -55,6 +66,8 @@
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="Bdk-xM-Yhf" secondAttribute="trailing" constant="16" id="Vp9-pE-hfJ"/>
                             <constraint firstItem="Bdk-xM-Yhf" firstAttribute="top" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="8" id="aWa-Yc-gED"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="117" id="fBc-DT-K6O"/>
+                            <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="jMm-Gs-ZES" secondAttribute="bottom" constant="20" id="nhh-NG-yJS"/>
+                            <constraint firstItem="jMm-Gs-ZES" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" constant="16" id="vhR-C6-ao5"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="trailing" secondItem="QA9-zH-3Ij" secondAttribute="trailing" id="yeJ-qW-90A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QA9-zH-3Ij"/>
@@ -71,6 +84,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="itunes" width="75" height="75"/>
         <image name="play" width="67.5" height="67.5"/>
     </resources>
 </document>
