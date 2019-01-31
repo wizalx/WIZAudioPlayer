@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 NS_ASSUME_NONNULL_BEGIN
+
+
 @protocol WIZAudioProcessorDelegate <NSObject>
 
 -(void)WIZAudioProcessorGetValues:(NSArray*)values;
+-(void)WIZAudioProcessorResetEngine;
+-(void)WIZAudioProcessorCurrentSecond:(float)currentSecond;
 
 @end
 

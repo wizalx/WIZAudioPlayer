@@ -23,16 +23,27 @@
                                 <color key="backgroundColor" red="0.8567402001489629" green="0.73161754311875338" blue="0.62389219755329273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csI-ZP-Z82">
-                                <rect key="frame" x="164.5" y="597" width="46" height="46"/>
+                                <rect key="frame" x="162.5" y="597" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="9Vj-EI-ZKz"/>
-                                    <constraint firstAttribute="height" constant="46" id="ibv-yW-OxD"/>
+                                    <constraint firstAttribute="width" constant="50" id="9Vj-EI-ZKz"/>
+                                    <constraint firstAttribute="height" constant="50" id="ibv-yW-OxD"/>
                                 </constraints>
                                 <state key="normal" image="play">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="tapPlay:" destination="NyY-jH-LDv" eventType="touchUpInside" id="OMK-3F-lbP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBh-bN-HUE">
+                                <rect key="frame" x="220.5" y="608" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="bXa-5Y-Yex"/>
+                                    <constraint firstAttribute="height" constant="40" id="ySl-KY-DrY"/>
+                                </constraints>
+                                <state key="normal" image="next"/>
+                                <connections>
+                                    <action selector="nextTrack:" destination="NyY-jH-LDv" eventType="touchUpInside" id="XlR-0f-w5L"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- empty -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-xM-Yhf">
@@ -55,18 +66,46 @@
                                     <action selector="getAudioList:" destination="NyY-jH-LDv" eventType="touchUpInside" id="Vfx-Mw-FIx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVr-Uw-Ylt">
+                                <rect key="frame" x="320" y="608" width="39" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="IBv-nR-d4M"/>
+                                    <constraint firstAttribute="width" constant="39" id="mHN-hH-PKS"/>
+                                </constraints>
+                                <state key="normal" image="playlist"/>
+                                <connections>
+                                    <segue destination="54h-O0-Dx5" kind="show" identifier="showPlaylist" id="273-F5-83n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeC-ub-5cB">
+                                <rect key="frame" x="114.5" y="608" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cYW-Zl-cEn"/>
+                                    <constraint firstAttribute="width" constant="40" id="p3e-KJ-Hb1"/>
+                                </constraints>
+                                <state key="normal" image="previous"/>
+                                <connections>
+                                    <action selector="previousTrack:" destination="NyY-jH-LDv" eventType="touchUpInside" id="AGU-VQ-qQ7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97326343911917101" green="0.8313355604936562" blue="0.71473403151150317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iVr-Uw-Ylt" secondAttribute="bottom" constant="20" id="3YW-On-6rm"/>
+                            <constraint firstItem="zBh-bN-HUE" firstAttribute="top" secondItem="Bdk-xM-Yhf" secondAttribute="bottom" constant="29" id="DTm-dV-uoO"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="top" secondItem="DTf-kd-IXO" secondAttribute="top" id="GUy-Bo-b83"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" id="JMv-ZH-mB2"/>
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="top" secondItem="Bdk-xM-Yhf" secondAttribute="bottom" constant="18" id="Mkw-H4-Cjg"/>
+                            <constraint firstItem="NeC-ub-5cB" firstAttribute="top" secondItem="Bdk-xM-Yhf" secondAttribute="bottom" constant="29" id="OYk-Td-0wn"/>
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="centerX" secondItem="DTf-kd-IXO" secondAttribute="centerX" id="PrC-SE-k47"/>
+                            <constraint firstItem="csI-ZP-Z82" firstAttribute="leading" secondItem="NeC-ub-5cB" secondAttribute="trailing" constant="8" id="SnV-Hf-2S4"/>
                             <constraint firstItem="Bdk-xM-Yhf" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" constant="16" id="TLe-wk-Q7K"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="Bdk-xM-Yhf" secondAttribute="trailing" constant="16" id="Vp9-pE-hfJ"/>
+                            <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="iVr-Uw-Ylt" secondAttribute="trailing" constant="16" id="Yxm-ov-A6E"/>
                             <constraint firstItem="Bdk-xM-Yhf" firstAttribute="top" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="8" id="aWa-Yc-gED"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="117" id="fBc-DT-K6O"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="jMm-Gs-ZES" secondAttribute="bottom" constant="20" id="nhh-NG-yJS"/>
+                            <constraint firstItem="zBh-bN-HUE" firstAttribute="leading" secondItem="csI-ZP-Z82" secondAttribute="trailing" constant="8" id="taB-9k-4vk"/>
                             <constraint firstItem="jMm-Gs-ZES" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" constant="16" id="vhR-C6-ao5"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="trailing" secondItem="QA9-zH-3Ij" secondAttribute="trailing" id="yeJ-qW-90A"/>
                         </constraints>
@@ -82,9 +121,54 @@
             </objects>
             <point key="canvasLocation" x="144.80000000000001" y="31.934032983508249"/>
         </scene>
+        <!--Player Playlist Screen-->
+        <scene sceneID="PdX-QU-6df">
+            <objects>
+                <tableViewController id="54h-O0-Dx5" customClass="WIZPlayerPlaylistScreen" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SkX-QH-9Lm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="q1z-VK-8IU">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" red="0.97326343910000002" green="0.83133556050000001" blue="0.71473403150000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <items>
+                                <navigationItem title="My Playlist" id="Hch-SO-ku4">
+                                    <barButtonItem key="rightBarButtonItem" title="Cancel" id="fSB-tm-hnU">
+                                        <connections>
+                                            <action selector="tapCancel:" destination="54h-O0-Dx5" id="5AJ-d0-Oyz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trackCell" rowHeight="72" id="w0w-xF-gwK" customClass="WIZTrackCell">
+                                <rect key="frame" x="0.0" y="72" width="375" height="72"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w0w-xF-gwK" id="kjw-cH-MUH">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="54h-O0-Dx5" id="rTB-HR-GdZ"/>
+                            <outlet property="delegate" destination="54h-O0-Dx5" id="UVo-qT-yj5"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSw-pl-M4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="981.60000000000002" y="31.934032983508249"/>
+        </scene>
     </scenes>
     <resources>
         <image name="itunes" width="75" height="75"/>
+        <image name="next" width="75" height="75"/>
         <image name="play" width="67.5" height="67.5"/>
+        <image name="playlist" width="75" height="75"/>
+        <image name="previous" width="75" height="75"/>
     </resources>
 </document>
