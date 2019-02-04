@@ -67,7 +67,16 @@ typedef enum
     
     [self.slider setContinuous:NO];
     
-    [self createTitleTrack:@" - empty - "];
+    
+    if ([WIZAudioDataProvider sharedInstance].playlist)
+    {
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[0];
+        currentIndex = 0;
+        
+        [self playNewTrack];
+    }
+    else
+        [self createTitleTrack:@" - empty - "];
 
 }
 

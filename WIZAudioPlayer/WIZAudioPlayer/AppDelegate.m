@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Resources/WIZAudioDataProvider.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[WIZAudioDataProvider sharedInstance] loadPlaylistFromFile];
     return YES;
 }
 
@@ -28,7 +29,7 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
+    [[WIZAudioDataProvider sharedInstance] savePlaylistToFile];
 }
 
 

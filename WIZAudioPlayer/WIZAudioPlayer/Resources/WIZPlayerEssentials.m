@@ -60,9 +60,16 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     if(self = [super init]){
-        self = [self initFromURL:[aDecoder decodeObjectForKey:@"url"] artist:[aDecoder decodeObjectForKey:@"artist"] title:[aDecoder decodeObjectForKey:@"title"]];
+        trackUrl = [aDecoder decodeObjectOfClass:[NSURL class] forKey:@"url"];
+        trackArtist = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"artist"];
+        trackTitle = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"];
     }
     return self;
+}
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 @end
