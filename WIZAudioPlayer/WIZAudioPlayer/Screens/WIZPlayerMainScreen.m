@@ -16,6 +16,7 @@
 
 #import "../Resources/WIZPlayerEssentials.h"
 #import "WIZPlayerPlaylistScreen.h"
+#import <WebKit/WebKit.h>
 
 typedef enum
 {
@@ -38,13 +39,13 @@ typedef enum
 @property (nonatomic, strong) WIZEqualizer *equalizer;
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
 @property (weak, nonatomic) IBOutlet UIButton *playStopBtn;
-@property (weak, nonatomic) IBOutlet UILabel *trackName;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @property (weak, nonatomic) WIZMusicTrack *currentTrack;
 @property (nonatomic) kPlayerState playerState;
 
 @property (nonatomic) UIView *spinnerView;
+@property (weak, nonatomic) IBOutlet WKWebView *titleTrackView;
 
 @end
 
@@ -64,6 +65,9 @@ typedef enum
     [self.slider setThumbImage:[self resizeImage:[UIImage imageNamed:@"sliderPoint"] withSize:CGSizeMake(15.0, 15.0)] forState:UIControlStateNormal];
     
     [self.slider setContinuous:NO];
+    
+    [self createTitleTrack:@" - empty - "];
+
 }
 
 #pragma mark - control btn
@@ -99,8 +103,7 @@ typedef enum
 -(void)playNewTrack
 {
     _playerState = kPlayerStatePlay;
-    
-    self.trackName.text = [NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title];
+   
     
     AVAudioFile *file = [[AVAudioFile alloc] initForReading:_currentTrack.url error:nil];
     
@@ -121,6 +124,7 @@ typedef enum
         }];
         startAfterRestart = NO;
     } else {
+        [self createTitleTrack:[NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title]];
         [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
         self.slider.maximumValue = capacity/44100;
         self.slider.value = 0;
@@ -173,6 +177,15 @@ typedef enum
 
 - (IBAction)sliderTouchDown:(id)sender {
     [self tapPlay:nil];
+}
+
+#pragma mark - track title
+
+-(void)createTitleTrack:(NSString*)title
+{
+    //TODO: remove dirty hack!
+    NSString *htmlString = [NSString stringWithFormat:@"<html><body style=\"background-color:#F8D4B6;\"><font size=\"50\" face=\"Verdana\"><marquee direction=\"left\">%@</marquee></font></body></html>",title];
+    [self.titleTrackView loadHTMLString:htmlString baseURL:nil];
 }
 
 #pragma mark - audio processor delegate
