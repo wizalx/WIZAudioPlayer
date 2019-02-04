@@ -50,4 +50,26 @@
     return trackTitle;
 }
 
+#pragma mark - code object
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.url forKey:@"url"];
+    [aCoder encodeObject:self.artist forKey:@"artist"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    if(self = [super init]){
+        trackUrl = [aDecoder decodeObjectOfClass:[NSURL class] forKey:@"url"];
+        trackArtist = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"artist"];
+        trackTitle = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"];
+    }
+    return self;
+}
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
 @end

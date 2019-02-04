@@ -8,6 +8,7 @@
 
 #import "WIZPlayerPlaylistScreen.h"
 #import "Cells/WIZTrackCell.h"
+#import "../Resources/WIZAudioDataProvider.h"
 
 @interface WIZPlayerPlaylistScreen ()
 
@@ -28,15 +29,6 @@
     
 }
 
-#pragma mark - setters
-
--(void)setPlaylist:(NSArray<WIZMusicTrack *> *)playlist
-{
-    _playlist = playlist;
-    NSLog(@"_playlist.count = %lu",(unsigned long)_playlist.count);
-    [self.tableView reloadData];
-}
-
 
 #pragma mark - Table view data source
 
@@ -45,7 +37,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _playlist.count;
+    return [WIZAudioDataProvider sharedInstance].playlist.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,7 +48,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WIZTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trackCell" forIndexPath:indexPath];
     
-    cell.track = _playlist[indexPath.row];
+    cell.track = [WIZAudioDataProvider sharedInstance].playlist[indexPath.row];
     // Configure the cell...
     return cell;
 }
@@ -64,7 +56,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_selectTrack) {
-        _selectTrack(self.playlist[indexPath.row]);
+        _selectTrack([WIZAudioDataProvider sharedInstance].playlist[indexPath.row]);
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

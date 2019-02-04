@@ -7,15 +7,18 @@
 //
 
 #import "WIZPlayerMainScreen.h"
-#import "../SourceView/WIZEqualizer.h"
-#import "../Processors/WIZAudioProcessor.h"
-#import <AVFoundation/AVFoundation.h>
 
 #import <MediaPlayer/MediaPlayer.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <WebKit/WebKit.h>
+#import <AVFoundation/AVFoundation.h>
 
+#import "../SourceView/WIZEqualizer.h"
+#import "../Processors/WIZAudioProcessor.h"
 #import "../Resources/WIZPlayerEssentials.h"
+#import "../Resources/WIZAudioDataProvider.h"
 #import "WIZPlayerPlaylistScreen.h"
+
 
 typedef enum
 {
@@ -28,7 +31,6 @@ typedef enum
 {
     float currentTrackSecond;
     MPMediaPickerController *mediaPicker;
-    NSArray <WIZMusicTrack*> *playlist;
     bool startAfterRestart;
     NSInteger currentIndex;
 }
@@ -38,13 +40,13 @@ typedef enum
 @property (nonatomic, strong) WIZEqualizer *equalizer;
 @property (nonatomic) WIZAudioProcessor *audioProcessor;
 @property (weak, nonatomic) IBOutlet UIButton *playStopBtn;
-@property (weak, nonatomic) IBOutlet UILabel *trackName;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @property (weak, nonatomic) WIZMusicTrack *currentTrack;
 @property (nonatomic) kPlayerState playerState;
 
 @property (nonatomic) UIView *spinnerView;
+@property (weak, nonatomic) IBOutlet WKWebView *titleTrackView;
 
 @end
 
@@ -59,9 +61,23 @@ typedef enum
     startAfterRestart = NO;
     _playerState = kPlayerStateStop;
     
+    currentTrackSecond = 0;
+    
     [self.slider setThumbImage:[self resizeImage:[UIImage imageNamed:@"sliderPoint"] withSize:CGSizeMake(15.0, 15.0)] forState:UIControlStateNormal];
     
     [self.slider setContinuous:NO];
+    
+    
+    if ([WIZAudioDataProvider sharedInstance].playlist)
+    {
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[0];
+        currentIndex = 0;
+        
+        [self playNewTrack];
+    }
+    else
+        [self createTitleTrack:@" - empty - "];
+
 }
 
 #pragma mark - control btn
@@ -97,8 +113,7 @@ typedef enum
 -(void)playNewTrack
 {
     _playerState = kPlayerStatePlay;
-    
-    self.trackName.text = [NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title];
+   
     
     AVAudioFile *file = [[AVAudioFile alloc] initForReading:_currentTrack.url error:nil];
     
@@ -108,10 +123,9 @@ typedef enum
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
     
     [file readIntoBuffer:buffer error:nil];
-    
-    [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
     if (startAfterRestart) {
-        NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
+        [self.audioProcessor.player reset];
+        NSLog(@"SELECT = %.2f",currentTrackSecond);
         unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
         unsigned long int lengthSamples = file.length-startSample;
         
@@ -120,6 +134,7 @@ typedef enum
         }];
         startAfterRestart = NO;
     } else {
+        [self createTitleTrack:[NSString stringWithFormat:@"%@ - %@",_currentTrack.artist,_currentTrack.title]];
         [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
         self.slider.maximumValue = capacity/44100;
         self.slider.value = 0;
@@ -136,13 +151,14 @@ typedef enum
     
     [self.audioProcessor.player stop];
     [self.audioProcessor.player reset];
-    if (currentIndex+1 >= playlist.count) {
+    if (currentIndex+1 >= [WIZAudioDataProvider sharedInstance].playlist.count) {
         currentIndex = 0;
-        self.currentTrack = playlist[0];
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[0];
     } else {
         currentIndex++;
-        self.currentTrack = playlist[currentIndex];
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[currentIndex];
     }
+    currentTrackSecond = 0;
     [self playNewTrack];
 }
 
@@ -150,11 +166,11 @@ typedef enum
     [self.audioProcessor.player stop];
     [self.audioProcessor.player reset];
     if (currentIndex-1 < 0) {
-        currentIndex = playlist.count - 1;
-        self.currentTrack = playlist[currentIndex];
+        currentIndex = [WIZAudioDataProvider sharedInstance].playlist.count - 1;
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[currentIndex];
     } else {
         currentIndex--;
-        self.currentTrack = playlist[currentIndex];
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[currentIndex];
     }
     [self playNewTrack];
 }
@@ -163,12 +179,23 @@ typedef enum
 
 - (IBAction)valueCanged:(id)sender {
     currentTrackSecond = self.slider.value;
-    NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
-    [self WIZAudioProcessorResetEngine];
+    [self.audioProcessor.player stop];
+    [self.audioProcessor.player reset];
+    startAfterRestart = YES;
+    [self playNewTrack];
 }
 
 - (IBAction)sliderTouchDown:(id)sender {
     [self tapPlay:nil];
+}
+
+#pragma mark - track title
+
+-(void)createTitleTrack:(NSString*)title
+{
+    //TODO: remove dirty hack!
+    NSString *htmlString = [NSString stringWithFormat:@"<html><body style=\"background-color:#F8D4B6;\"><font size=\"50\" face=\"Verdana\"><marquee direction=\"left\">%@</marquee></font></body></html>",title];
+    [self.titleTrackView loadHTMLString:htmlString baseURL:nil];
 }
 
 #pragma mark - audio processor delegate
@@ -193,9 +220,9 @@ typedef enum
 
 -(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
 {
-    [self.slider setValue:currentSecond];
-    currentTrackSecond = currentSecond;
-    NSLog(@"cts = %.2f",currentTrackSecond);
+    [self.slider setValue:currentTrackSecond + currentSecond];
+    if (self.slider.value == self.slider.maximumValue)
+        [self nextTrack:nil];
 }
 
 #pragma mark - get music from iTunes
@@ -235,13 +262,13 @@ typedef enum
             WIZMusicTrack *track = [[WIZMusicTrack alloc] initFromURL:urlTrack artist:artist title:title];
             [tracks addObject:track];
         }
-        playlist = tracks;
+        [[WIZAudioDataProvider sharedInstance] loadPlaylist:tracks];
         
-        if (playlist.count == 0)
+        if ([WIZAudioDataProvider sharedInstance].playlist.count == 0)
             return;
         
         
-        self.currentTrack = playlist[0];
+        self.currentTrack = [WIZAudioDataProvider sharedInstance].playlist[0];
         currentIndex = 0;
 
         [self playNewTrack];
@@ -256,7 +283,6 @@ typedef enum
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showPlaylist"]) {
         WIZPlayerPlaylistScreen *playlistScreen = [segue destinationViewController];
-        playlistScreen.playlist = playlist;
         playlistScreen.selectTrack = ^(WIZMusicTrack * _Nonnull track) {
             self.currentTrack = track;
             [self.audioProcessor.player stop];

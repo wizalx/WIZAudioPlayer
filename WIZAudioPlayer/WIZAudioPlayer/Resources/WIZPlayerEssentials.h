@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WIZMusicTrack : NSObject
+@interface WIZMusicTrack : NSObject <NSSecureCoding>
 
 -(id)initFromURL:(NSURL*)url artist:(NSString*)artist title:(NSString*)title;
 
