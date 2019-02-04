@@ -50,4 +50,19 @@
     return trackTitle;
 }
 
+#pragma mark - code object
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.url forKey:@"url"];
+    [aCoder encodeObject:self.artist forKey:@"artist"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    if(self = [super init]){
+        self = [self initFromURL:[aDecoder decodeObjectForKey:@"url"] artist:[aDecoder decodeObjectForKey:@"artist"] title:[aDecoder decodeObjectForKey:@"title"]];
+    }
+    return self;
+}
+
 @end

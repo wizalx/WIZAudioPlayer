@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^WIZPlayerPlaylistScreenSelectTrack)(WIZMusicTrack* track);
 @interface WIZPlayerPlaylistScreen : UITableViewController
 
-@property (nonatomic) NSArray <WIZMusicTrack*> *playlist;
 @property (nonatomic, strong) WIZPlayerPlaylistScreenSelectTrack selectTrack;
 
 @end
