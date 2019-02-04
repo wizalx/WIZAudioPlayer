@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)loadPlaylist:(NSArray <WIZMusicTrack*>*)userPlayList;
 
+//saveAndLoad
 -(void)savePlaylistToFile;
 -(void)loadPlaylistFromFile;
 
+//playlist
 @property (nonatomic, readonly) NSArray <WIZMusicTrack*> *playlist;
 
 @end

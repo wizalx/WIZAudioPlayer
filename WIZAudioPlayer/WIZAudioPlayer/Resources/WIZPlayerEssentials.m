@@ -13,13 +13,14 @@
     NSURL *trackUrl;
     NSString *trackArtist;
     NSString *trackTitle;
+    UIImage *trackArtwork;
 }
 
 @end
 
 @implementation WIZMusicTrack
 
--(id)initFromURL:(NSURL*)url artist:(NSString*)artist title:(NSString*)title
+-(id)initFromURL:(NSURL*)url artist:(NSString*)artist title:(NSString*)title image:(UIImage *)artwork
 {
     self = [super init];
     if (self) {
@@ -31,6 +32,10 @@
         
         if (title)
             trackTitle = title;
+        
+        if (artwork)
+            trackArtwork = artwork;
+        
     }
     return self;
 }
@@ -50,12 +55,18 @@
     return trackTitle;
 }
 
+-(UIImage*)artwork
+{
+    return trackArtwork;
+}
+
 #pragma mark - code object
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.url forKey:@"url"];
     [aCoder encodeObject:self.artist forKey:@"artist"];
     [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.artwork forKey:@"artwork"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -63,6 +74,7 @@
         trackUrl = [aDecoder decodeObjectOfClass:[NSURL class] forKey:@"url"];
         trackArtist = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"artist"];
         trackTitle = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"];
+        trackArtwork = [aDecoder decodeObjectOfClass:[UIImage class] forKey:@"artwork"];
     }
     return self;
 }

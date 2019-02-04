@@ -51,7 +51,7 @@
     
     NSData *dataPlaylist = [NSData dataWithContentsOfFile:[self filePathList]];
     
-    NSSet *classes = [NSSet setWithObjects:[NSArray class], [WIZMusicTrack class], [NSURL class], [NSString class], nil];
+    NSSet *classes = [NSSet setWithObjects:[NSArray class], [WIZMusicTrack class], [NSURL class], [NSString class],[UIImage class], nil];
     
     NSError *error;
     playlist = [NSKeyedUnarchiver unarchivedObjectOfClasses:classes fromData:dataPlaylist error:&error];
