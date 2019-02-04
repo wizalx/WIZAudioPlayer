@@ -18,7 +18,7 @@
 #import "../Resources/WIZPlayerEssentials.h"
 #import "../Resources/WIZAudioDataProvider.h"
 #import "WIZPlayerPlaylistScreen.h"
-
+#import <MediaPlayer/MediaPlayer.h>
 
 typedef enum
 {
@@ -78,6 +78,8 @@ typedef enum
     else
         [self createTitleTrack:@" - empty - "];
 
+    
+    [self prepareRemoteCenter];
 }
 
 #pragma mark - control btn
@@ -144,6 +146,17 @@ typedef enum
     
     
     [self.audioProcessor.player play];
+    
+    MPMediaItemArtwork *controlArtwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:CGSizeMake(128, 128) requestHandler:^UIImage * _Nonnull(CGSize size) {
+        return self.currentTrack.artwork;
+    }];
+ 
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                                 self.currentTrack.title, MPMediaItemPropertyTitle,
+                                                                 self.currentTrack.artist, MPMediaItemPropertyArtist,
+                                                                controlArtwork, MPMediaItemPropertyArtwork,
+                                                                 [NSNumber numberWithDouble:0.0], MPNowPlayingInfoPropertyPlaybackRate, nil];
+    
     [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
 }
 
@@ -259,7 +272,11 @@ typedef enum
             NSURL *urlTrack = [song valueForProperty:MPMediaItemPropertyAssetURL];
             NSString *artist = [song valueForProperty:MPMediaItemPropertyArtist];
             NSString *title = [song valueForProperty:MPMediaItemPropertyTitle];
-            WIZMusicTrack *track = [[WIZMusicTrack alloc] initFromURL:urlTrack artist:artist title:title];
+            
+            MPMediaItemArtwork *itemArtwork = [song valueForProperty:MPMediaItemPropertyArtwork];
+            
+            WIZMusicTrack *track = [[WIZMusicTrack alloc] initFromURL:urlTrack artist:artist title:title image:[itemArtwork imageWithSize:CGSizeMake(128, 128)]];
+            
             [tracks addObject:track];
         }
         [[WIZAudioDataProvider sharedInstance] loadPlaylist:tracks];
@@ -276,6 +293,28 @@ typedef enum
         return;
  
     }
+}
+
+#pragma mark - prepare remote
+
+-(void)prepareRemoteCenter
+{
+    
+    [self.audioProcessor.commandCenter.togglePlayPauseCommand addTargetWithHandler: ^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self tapPlay:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
+    [self.audioProcessor.commandCenter.nextTrackCommand addTargetWithHandler: ^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self nextTrack:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
+    [self.audioProcessor.commandCenter.previousTrackCommand addTargetWithHandler: ^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self previousTrack:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
 }
 
 #pragma mark - segue

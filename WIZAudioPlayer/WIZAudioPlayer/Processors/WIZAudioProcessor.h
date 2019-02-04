@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -24,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)initWithCountLines:(int)lines;
 @property (nonatomic) AVAudioPlayerNode* player;
 @property (nonatomic, retain) id <WIZAudioProcessorDelegate> delegate;
+@property (nonatomic) MPRemoteCommandCenter *commandCenter;
 
 
 @end

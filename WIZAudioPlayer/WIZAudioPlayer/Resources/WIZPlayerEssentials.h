@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface WIZMusicTrack : NSObject <NSSecureCoding>
 
--(id)initFromURL:(NSURL*)url artist:(NSString*)artist title:(NSString*)title;
+-(id)initFromURL:(NSURL*)url artist:(NSString*)artist title:(NSString*)title image:(UIImage*)artwork;
 
 @property (nonatomic, readonly) NSURL* url;
 @property (nonatomic, readonly) NSString* artist;
 @property (nonatomic, readonly) NSString* title;
+@property (nonatomic, readonly) UIImage* artwork;
 
 @end
 

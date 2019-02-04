@@ -9,6 +9,7 @@
 #import "WIZAudioProcessor.h"
 #import <Accelerate/Accelerate.h>
 
+
 @interface WIZAudioProcessor()
 
 @property (nonatomic) AVAudioEngine *engine;
@@ -48,6 +49,8 @@
     NSError *sessionError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
     [[AVAudioSession sharedInstance] setActive:YES error:&sessionError];
+    
+    [self createRemoteCenter];
     
     //prepare engine
     [self.engine attachNode:_player];
@@ -109,6 +112,19 @@
     if (![self.engine startAndReturnError:&error]) {
         NSLog(@"RUN ENGINE ERROR! %@",error.description);
     }
+}
+
+#pragma mark - create remote centr
+
+-(void)createRemoteCenter
+{
+    self.commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    [self.commandCenter.togglePlayPauseCommand setEnabled:YES];
+    [self.commandCenter.playCommand setEnabled:YES];
+    [self.commandCenter.pauseCommand setEnabled:YES];
+    [self.commandCenter.nextTrackCommand setEnabled:YES];
+    [self.commandCenter.previousTrackCommand setEnabled:YES];
+
 }
 
 #pragma mark - change devices
