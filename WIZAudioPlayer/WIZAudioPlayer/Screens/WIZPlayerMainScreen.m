@@ -59,6 +59,8 @@ typedef enum
     startAfterRestart = NO;
     _playerState = kPlayerStateStop;
     
+    currentTrackSecond = 0;
+    
     [self.slider setThumbImage:[self resizeImage:[UIImage imageNamed:@"sliderPoint"] withSize:CGSizeMake(15.0, 15.0)] forState:UIControlStateNormal];
     
     [self.slider setContinuous:NO];
@@ -108,10 +110,9 @@ typedef enum
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:capacity];
     
     [file readIntoBuffer:buffer error:nil];
-    
-    [self.audioProcessor.player scheduleBuffer:buffer completionHandler:nil];
     if (startAfterRestart) {
-        NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
+        [self.audioProcessor.player reset];
+        NSLog(@"SELECT = %.2f",currentTrackSecond);
         unsigned long int startSample = (long int)floor(currentTrackSecond*file.processingFormat.sampleRate);
         unsigned long int lengthSamples = file.length-startSample;
         
@@ -143,6 +144,7 @@ typedef enum
         currentIndex++;
         self.currentTrack = playlist[currentIndex];
     }
+    currentTrackSecond = 0;
     [self playNewTrack];
 }
 
@@ -163,8 +165,10 @@ typedef enum
 
 - (IBAction)valueCanged:(id)sender {
     currentTrackSecond = self.slider.value;
-    NSLog(@"currentTrackSecond = %.2f",currentTrackSecond);
-    [self WIZAudioProcessorResetEngine];
+    [self.audioProcessor.player stop];
+    [self.audioProcessor.player reset];
+    startAfterRestart = YES;
+    [self playNewTrack];
 }
 
 - (IBAction)sliderTouchDown:(id)sender {
@@ -193,9 +197,9 @@ typedef enum
 
 -(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
 {
-    [self.slider setValue:currentSecond];
-    currentTrackSecond = currentSecond;
-    NSLog(@"cts = %.2f",currentTrackSecond);
+    [self.slider setValue:currentTrackSecond + currentSecond];
+    if (self.slider.value == self.slider.maximumValue)
+        [self nextTrack:nil];
 }
 
 #pragma mark - get music from iTunes
