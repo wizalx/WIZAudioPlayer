@@ -17,6 +17,8 @@
 #import "../Processors/WIZAudioProcessor.h"
 #import "../Resources/WIZPlayerEssentials.h"
 #import "../Resources/WIZAudioDataProvider.h"
+#import "../SourceView/WIZMarqueeTextView/WIZMarqueeTextView.h"
+
 #import "WIZPlayerPlaylistScreen.h"
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -44,9 +46,9 @@ typedef enum
 
 @property (weak, nonatomic) WIZMusicTrack *currentTrack;
 @property (nonatomic) kPlayerState playerState;
+@property (weak, nonatomic) IBOutlet WIZMarqueeTextView *marqueeTextView;
 
 @property (nonatomic) UIView *spinnerView;
-@property (weak, nonatomic) IBOutlet WKWebView *titleTrackView;
 
 @end
 
@@ -55,6 +57,8 @@ typedef enum
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    //prepate screen
     self.audioProcessor = [[WIZAudioProcessor alloc] initWithCountLines:20];
     self.audioProcessor.delegate = self;
 
@@ -80,6 +84,8 @@ typedef enum
 
     
     [self prepareRemoteCenter];
+    
+    self.marqueeTextView.fontSize = 15;
 }
 
 #pragma mark - control btn
@@ -206,9 +212,7 @@ typedef enum
 
 -(void)createTitleTrack:(NSString*)title
 {
-    //TODO: remove dirty hack!
-    NSString *htmlString = [NSString stringWithFormat:@"<html><body style=\"background-color:#F8D4B6;\"><font size=\"50\" face=\"Verdana\"><marquee direction=\"left\">%@</marquee></font></body></html>",title];
-    [self.titleTrackView loadHTMLString:htmlString baseURL:nil];
+    [self.marqueeTextView setText:title];
 }
 
 #pragma mark - audio processor delegate
