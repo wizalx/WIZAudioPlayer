@@ -132,9 +132,6 @@
 {
     self.scrollView.contentSize = CGSizeMake(MAX(widthText, self.frame.size.width) * 2, self.frame.size.height);
     
-    
-    NSLog(@"width = %.2f \n widthContent = %.2f",widthText,MAX(widthText, self.frame.size.width) * 2);
-    
     //create labels
     self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAX(widthText, self.frame.size.width), self.frame.size.height)];
     self.textLabel.textAlignment = NSTextAlignmentCenter;

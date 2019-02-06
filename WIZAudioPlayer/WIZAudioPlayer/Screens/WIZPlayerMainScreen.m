@@ -163,7 +163,9 @@ typedef enum
                                                                  self.currentTrack.title, MPMediaItemPropertyTitle,
                                                                  self.currentTrack.artist, MPMediaItemPropertyArtist,
                                                                 controlArtwork, MPMediaItemPropertyArtwork,
-                                                                 [NSNumber numberWithDouble:0.0], MPNowPlayingInfoPropertyPlaybackRate, nil];
+                                                                 [NSNumber numberWithDouble:1.0], MPNowPlayingInfoPropertyPlaybackRate,
+                                                             [NSNumber numberWithInt:0],MPNowPlayingInfoPropertyElapsedPlaybackTime,
+                                                              nil];
     
     [_playStopBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
 }
@@ -240,6 +242,13 @@ typedef enum
 -(void)WIZAudioProcessorCurrentSecond:(float)currentSecond
 {
     [self.slider setValue:currentTrackSecond + currentSecond];
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                               self.currentTrack.title, MPMediaItemPropertyTitle,
+                                                               self.currentTrack.artist, MPMediaItemPropertyArtist,
+                                                               [NSNumber numberWithFloat:self.slider.value], MPNowPlayingInfoPropertyElapsedPlaybackTime, [NSNumber numberWithFloat:self.slider.maximumValue] ,MPMediaItemPropertyPlaybackDuration,
+                                                               nil]];
+    
     if (self.slider.value == self.slider.maximumValue)
         [self nextTrack:nil];
 }
@@ -321,6 +330,21 @@ typedef enum
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
+    [self.audioProcessor.commandCenter.changePlaybackPositionCommand
+     addTarget: self
+     action: @selector(onChangePlaybackPositionCommand:)];
+    
+}
+
+- (MPRemoteCommandHandlerStatus) onChangePlaybackPositionCommand:
+(MPChangePlaybackPositionCommandEvent *) event
+{
+    currentTrackSecond = event.positionTime;
+    [self.audioProcessor.player stop];
+    [self.audioProcessor.player reset];
+    startAfterRestart = YES;
+    [self playNewTrack];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
 #pragma mark - segue
