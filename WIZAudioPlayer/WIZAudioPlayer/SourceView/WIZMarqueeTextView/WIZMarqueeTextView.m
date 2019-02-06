@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic) UILabel *textLabel;
+@property (nonatomic) UILabel *infiniteLabel;
 @end
 
 @implementation WIZMarqueeTextView
@@ -87,34 +88,93 @@
 -(void)setText:(NSString *)text
 {
     _text = text;
-    float widthText = [self widthOfString:text withFont:font];
     
+    //calculate width text
+    float widthText = [self widthOfString:_text withFont:font];
+    
+    //clear current view and animations
     [self.scrollView.layer removeAllAnimations];
+    [self.textLabel removeFromSuperview];
+    [self.infiniteLabel removeFromSuperview];
     
+    if (_isBounced) {
+        [self bouncedText:widthText];
+    } else {
+        [self infiniteText:widthText];
+    }
+    
+}
+
+-(void)setIsBounced:(BOOL)isBounced
+{
+    _isBounced = isBounced;
+    [self setText:_text];
+}
+
+#pragma mark - prepare to animation
+
+-(void)bouncedText:(float)widthText
+{
     self.scrollView.contentSize = CGSizeMake(MAX(widthText, self.frame.size.width), self.frame.size.height);
     
-    [self.textLabel removeFromSuperview];
-    
+    //create label
     self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAX(widthText, self.frame.size.width), self.frame.size.height)];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
-//    self.textLabel.backgroundColor = [UIColor lightGrayColor];
     self.textLabel.font = font;
-    self.textLabel.text = text;
+    self.textLabel.text = _text;
     
     [self.scrollView addSubview:self.textLabel];
     if (widthText > self.frame.size.width)
-         [self marqueeAnimationRight];
+        [self marqueeBouncedAnimation];
+}
+
+-(void)infiniteText:(float)widthText
+{
+    self.scrollView.contentSize = CGSizeMake(MAX(widthText, self.frame.size.width) * 2, self.frame.size.height);
     
-   
+    
+    NSLog(@"width = %.2f \n widthContent = %.2f",widthText,MAX(widthText, self.frame.size.width) * 2);
+    
+    //create labels
+    self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAX(widthText, self.frame.size.width), self.frame.size.height)];
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+    self.textLabel.font = font;
+    self.textLabel.text = _text;
+    
+    self.infiniteLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAX(widthText, self.frame.size.width) + 16, 0, MAX(widthText, self.frame.size.width), self.frame.size.height)];
+    self.infiniteLabel.textAlignment = NSTextAlignmentCenter;
+    self.infiniteLabel.font = font;
+    self.infiniteLabel.text = _text;
+    
+    [self.scrollView addSubview:self.textLabel];
+    [self.scrollView addSubview:self.infiniteLabel];
+    
+    [self marqueeInfinite];
+    
 }
 
 #pragma mark - animation
 
--(void)marqueeAnimationRight
+-(void)marqueeBouncedAnimation
 {
+    self.scrollView.contentOffset = CGPointMake(0,0);
     [UIView animateWithDuration:_duration delay:2.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat) animations:^{
         self.scrollView.contentOffset = CGPointMake(self.scrollView.contentSize.width - self.frame.size.width, 0);
     } completion:nil];
+}
+
+-(void)marqueeInfinite
+{
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    [UIView animateWithDuration:_duration delay:2.0 options:(UIViewAnimationOptionCurveLinear  | UIViewAnimationOptionRepeat) animations:^{
+        self.scrollView.contentOffset = CGPointMake((self.scrollView.contentSize.width/2 + 8), 0);
+        
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.scrollView.contentOffset = CGPointMake(self.scrollView.contentSize.width - self.frame.size.width, 0);
+        }
+        
+    }];
 }
 
 #pragma mark - helper

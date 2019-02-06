@@ -86,6 +86,8 @@ typedef enum
     [self prepareRemoteCenter];
     
     self.marqueeTextView.fontSize = 15;
+    self.marqueeTextView.duration = 13;
+    self.marqueeTextView.isBounced = false;
 }
 
 #pragma mark - control btn

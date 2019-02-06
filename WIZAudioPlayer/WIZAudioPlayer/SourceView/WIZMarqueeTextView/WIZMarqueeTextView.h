@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) IBInspectable float duration;
 
+@property (nonatomic) IBInspectable BOOL isBounced;
+
 @end
 
 NS_ASSUME_NONNULL_END
