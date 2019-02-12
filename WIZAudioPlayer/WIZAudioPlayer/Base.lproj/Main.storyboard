@@ -95,6 +95,17 @@
                                     <action selector="previousTrack:" destination="NyY-jH-LDv" eventType="touchUpInside" id="AGU-VQ-qQ7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbc-hD-Fhg">
+                                <rect key="frame" x="315" y="40" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="pbu-DD-Sip"/>
+                                    <constraint firstAttribute="width" constant="40" id="uVx-hQ-2Wr"/>
+                                </constraints>
+                                <state key="normal" image="equalizer"/>
+                                <connections>
+                                    <segue destination="dkQ-Mg-FSF" kind="show" identifier="showEQ" id="Bya-qm-PL1"/>
+                                </connections>
+                            </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="by0-dM-Frq">
                                 <rect key="frame" x="-2" y="535" width="379" height="30"/>
                                 <constraints>
@@ -113,6 +124,7 @@
                             <constraint firstAttribute="bottom" secondItem="iVr-Uw-Ylt" secondAttribute="bottom" constant="20" id="3YW-On-6rm"/>
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="top" secondItem="WUo-NN-p4d" secondAttribute="bottom" constant="1" id="4o0-Zm-3Hk"/>
                             <constraint firstItem="WUo-NN-p4d" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" constant="8" id="8Qs-Re-IaJ"/>
+                            <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="qbc-hD-Fhg" secondAttribute="trailing" constant="20" id="AV6-qS-nsO"/>
                             <constraint firstItem="NeC-ub-5cB" firstAttribute="top" secondItem="WUo-NN-p4d" secondAttribute="bottom" constant="7" id="FKA-aD-OJt"/>
                             <constraint firstItem="by0-dM-Frq" firstAttribute="leading" secondItem="QA9-zH-3Ij" secondAttribute="leading" id="Fbd-lp-Krj"/>
                             <constraint firstItem="s8r-kO-v1i" firstAttribute="top" secondItem="DTf-kd-IXO" secondAttribute="top" id="GUy-Bo-b83"/>
@@ -120,6 +132,7 @@
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="centerX" secondItem="DTf-kd-IXO" secondAttribute="centerX" id="PrC-SE-k47"/>
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="top" secondItem="by0-dM-Frq" secondAttribute="bottom" constant="32" id="QwQ-ZW-ZHJ"/>
                             <constraint firstItem="csI-ZP-Z82" firstAttribute="leading" secondItem="NeC-ub-5cB" secondAttribute="trailing" constant="8" id="SnV-Hf-2S4"/>
+                            <constraint firstItem="qbc-hD-Fhg" firstAttribute="top" secondItem="QA9-zH-3Ij" secondAttribute="top" constant="20" id="Xox-b6-YyL"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="trailing" secondItem="iVr-Uw-Ylt" secondAttribute="trailing" constant="16" id="Yxm-ov-A6E"/>
                             <constraint firstItem="WUo-NN-p4d" firstAttribute="trailing" secondItem="QA9-zH-3Ij" secondAttribute="trailing" constant="-8" id="dWU-Bs-MLY"/>
                             <constraint firstItem="QA9-zH-3Ij" firstAttribute="bottom" secondItem="s8r-kO-v1i" secondAttribute="bottom" constant="117" id="fBc-DT-K6O"/>
@@ -143,6 +156,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hM6-gB-zau" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="144.80000000000001" y="31.934032983508249"/>
+        </scene>
+        <!--Screen-->
+        <scene sceneID="nwG-sG-mnQ">
+            <objects>
+                <viewController id="dkQ-Mg-FSF" customClass="WIZEQScreen" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cp5-6R-jxV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g12-WL-vwV">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.66106283529999998" blue="0.44480839150000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="1" green="0.66106283529999998" blue="0.44480839150000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="EQ" id="Cl8-FR-rEl">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="0KY-bs-gfK">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ltl-ap-Gps">
+                                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancelAction:" destination="dkQ-Mg-FSF" eventType="touchUpInside" id="B19-16-Ot5"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0B1-pF-2bV">
+                                <rect key="frame" x="5" y="76" width="365" height="365"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0B1-pF-2bV" secondAttribute="height" multiplier="1:1" id="vgI-7K-tOv"/>
+                                </constraints>
+                            </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYs-tg-xdq">
+                                <rect key="frame" x="164" y="466" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="eFi-JJ-CjH"/>
+                                    <constraint firstAttribute="height" constant="31" id="lwp-Wv-uG0"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="byPassSwitch:" destination="dkQ-Mg-FSF" eventType="valueChanged" id="a1a-4C-syP"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.66106283529999998" blue="0.44480839150000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0B1-pF-2bV" firstAttribute="leading" secondItem="RZ9-wE-40w" secondAttribute="leading" constant="5" id="3jq-kN-ei9"/>
+                            <constraint firstItem="JYs-tg-xdq" firstAttribute="centerX" secondItem="cp5-6R-jxV" secondAttribute="centerX" id="HVR-6X-bZ1"/>
+                            <constraint firstItem="0B1-pF-2bV" firstAttribute="top" secondItem="g12-WL-vwV" secondAttribute="bottom" constant="12" id="R7Z-MT-RGu"/>
+                            <constraint firstItem="g12-WL-vwV" firstAttribute="leading" secondItem="RZ9-wE-40w" secondAttribute="leading" id="fM1-NB-eCL"/>
+                            <constraint firstItem="g12-WL-vwV" firstAttribute="trailing" secondItem="RZ9-wE-40w" secondAttribute="trailing" id="gUo-9S-X8n"/>
+                            <constraint firstItem="RZ9-wE-40w" firstAttribute="trailing" secondItem="0B1-pF-2bV" secondAttribute="trailing" constant="5" id="jGh-cH-4wJ"/>
+                            <constraint firstItem="JYs-tg-xdq" firstAttribute="top" secondItem="0B1-pF-2bV" secondAttribute="bottom" constant="25" id="sLt-Ld-wtm"/>
+                            <constraint firstItem="g12-WL-vwV" firstAttribute="top" secondItem="RZ9-wE-40w" secondAttribute="top" id="yJe-Kj-tUC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RZ9-wE-40w"/>
+                    </view>
+                    <connections>
+                        <outlet property="containView" destination="0B1-pF-2bV" id="sDp-1e-4VZ"/>
+                        <outlet property="switchBP" destination="JYs-tg-xdq" id="y4I-8M-mJ7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YSJ-or-Cbs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1023.2" y="-272.11394302848578"/>
         </scene>
         <!--Player Playlist Screen-->
         <scene sceneID="PdX-QU-6df">
@@ -184,10 +264,11 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSw-pl-M4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981.60000000000002" y="31.934032983508249"/>
+            <point key="canvasLocation" x="1025" y="411"/>
         </scene>
     </scenes>
     <resources>
+        <image name="equalizer" width="179" height="179"/>
         <image name="itunes" width="75" height="75"/>
         <image name="next" width="75" height="75"/>
         <image name="play" width="67.5" height="67.5"/>

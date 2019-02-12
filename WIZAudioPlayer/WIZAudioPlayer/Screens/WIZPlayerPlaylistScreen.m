@@ -7,7 +7,7 @@
 //
 
 #import "WIZPlayerPlaylistScreen.h"
-#import "Cells/WIZTrackCell.h"
+#import "CellsAndViews/WIZTrackCell.h"
 #import "../Resources/WIZAudioDataProvider.h"
 
 @interface WIZPlayerPlaylistScreen ()

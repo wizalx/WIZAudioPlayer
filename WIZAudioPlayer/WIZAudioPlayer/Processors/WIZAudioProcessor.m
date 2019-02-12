@@ -16,6 +16,8 @@
 @property (nonatomic) NSMutableArray <NSNumber*> *linesPosition;
 @property (nonatomic) NSInteger audioLinesCount;
 
+@property (nonatomic) AVAudioUnitEQ *unitEq;
+
 
 @end
 
@@ -45,6 +47,8 @@
     self.engine = [[AVAudioEngine alloc] init];
     self.player = [[AVAudioPlayerNode alloc] init];
     
+   
+    
     //select output main speaker
     NSError *sessionError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
@@ -54,9 +58,15 @@
     
     //prepare engine
     [self.engine attachNode:_player];
-    AVAudioMixerNode *mixer = self.engine.mainMixerNode;
-    [self.engine connect:_player to:mixer format:[mixer outputFormatForBus:0]];
+
+    [self prepareEq];
     
+    
+    AVAudioMixerNode *mixer = self.engine.mainMixerNode;
+    
+    [self.engine connect:_player to:self.unitEq format:[mixer outputFormatForBus:0]];
+    [self.engine connect:self.unitEq to:mixer format:[mixer outputFormatForBus:0]];
+
     mixer = [self.engine mainMixerNode];
     
     //get lines
@@ -111,6 +121,44 @@
     NSError* error;
     if (![self.engine startAndReturnError:&error]) {
         NSLog(@"RUN ENGINE ERROR! %@",error.description);
+    }
+}
+
+-(void)prepareEq
+{
+    
+    self.unitEq = [[AVAudioUnitEQ alloc] initWithNumberOfBands:6];
+    
+    AVAudioUnitEQFilterParameters *filterParameters;
+    
+    for (int i=0; i<6; i++) {
+        filterParameters = self.unitEq.bands[i];
+        filterParameters.filterType = i < 4 ? i+1 : i > 4 ? i+5 : i+2;
+        filterParameters.frequency = 3000;
+        
+        filterParameters.bypass = YES;
+    }
+    
+    [self.engine attachNode:self.unitEq];
+}
+
+
+-(void)setByPass:(BOOL)byPass
+{
+    _byPass = byPass;
+    [self setEqArray:_eqArray];
+}
+
+-(void)setEqArray:(NSArray*)eqArray
+{
+    _eqArray = eqArray;
+    for (int i=0; i<eqArray.count; i++) {
+        AVAudioUnitEQFilterParameters *filterParameters = self.unitEq.bands[i];
+        filterParameters.filterType = i < 4 ? i+1 : i > 4 ? i+5 : i+2;
+        filterParameters.frequency =  [eqArray[i] floatValue];
+        filterParameters.bypass = _byPass;
+
+        [self.engine attachNode:self.unitEq];
     }
 }
 
