@@ -15,6 +15,8 @@
 		A99D5339220299C100BFEDBA /* WIZPlayerEssentials.m in Sources */ = {isa = PBXBuildFile; fileRef = A99D5338220299C100BFEDBA /* WIZPlayerEssentials.m */; };
 		A99D533D2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A99D533C2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.m */; };
 		A99D53412202C03100BFEDBA /* WIZTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A99D53402202C03100BFEDBA /* WIZTrackCell.m */; };
+		A9A207E72216801600C1281A /* WIZSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A207E52216801500C1281A /* WIZSwitchCell.m */; };
+		A9A207E82216801600C1281A /* WIZSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A207E62216801500C1281A /* WIZSwitchCell.xib */; };
 		A9BB932E22001C4B00BA4484 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB932D22001C4B00BA4484 /* AppDelegate.m */; };
 		A9BB933422001C4B00BA4484 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9BB933222001C4B00BA4484 /* Main.storyboard */; };
 		A9BB933622001C4D00BA4484 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9BB933522001C4D00BA4484 /* Assets.xcassets */; };
@@ -27,8 +29,9 @@
 		A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BB9368220021F900BA4484 /* WIZProgressView.xib */; };
 		A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB936C2200221500BA4484 /* WIZEqualizer.m */; };
 		A9BB937422007B1B00BA4484 /* WIZAudioProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BB937322007B1B00BA4484 /* WIZAudioProcessor.m */; };
-		A9D027E9220C620A000AA394 /* WIZEQScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D027E8220C620A000AA394 /* WIZEQScreen.m */; };
-		A9DA3E1B22118D6D0097A85B /* WIZSlidersView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3E1A22118D6D0097A85B /* WIZSlidersView.m */; };
+		A9DA3E1E221457100097A85B /* WIZEffectTable.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3E1D221457100097A85B /* WIZEffectTable.m */; };
+		A9DA3E22221459070097A85B /* WIZSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3E20221459070097A85B /* WIZSliderCell.m */; };
+		A9DA3E23221459070097A85B /* WIZSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3E21221459070097A85B /* WIZSliderCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		A99D533C2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZPlayerPlaylistScreen.m; sourceTree = "<group>"; };
 		A99D533F2202C03100BFEDBA /* WIZTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZTrackCell.h; sourceTree = "<group>"; };
 		A99D53402202C03100BFEDBA /* WIZTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZTrackCell.m; sourceTree = "<group>"; };
+		A9A207E42216801500C1281A /* WIZSwitchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZSwitchCell.h; sourceTree = "<group>"; };
+		A9A207E52216801500C1281A /* WIZSwitchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZSwitchCell.m; sourceTree = "<group>"; };
+		A9A207E62216801500C1281A /* WIZSwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WIZSwitchCell.xib; sourceTree = "<group>"; };
 		A9BB932922001C4B00BA4484 /* WIZAudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WIZAudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9BB932C22001C4B00BA4484 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A9BB932D22001C4B00BA4484 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,10 +91,11 @@
 		A9BB936C2200221500BA4484 /* WIZEqualizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZEqualizer.m; sourceTree = "<group>"; };
 		A9BB937222007B1B00BA4484 /* WIZAudioProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZAudioProcessor.h; sourceTree = "<group>"; };
 		A9BB937322007B1B00BA4484 /* WIZAudioProcessor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZAudioProcessor.m; sourceTree = "<group>"; };
-		A9D027E7220C620A000AA394 /* WIZEQScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZEQScreen.h; sourceTree = "<group>"; };
-		A9D027E8220C620A000AA394 /* WIZEQScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZEQScreen.m; sourceTree = "<group>"; };
-		A9DA3E1922118D6D0097A85B /* WIZSlidersView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZSlidersView.h; sourceTree = "<group>"; };
-		A9DA3E1A22118D6D0097A85B /* WIZSlidersView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZSlidersView.m; sourceTree = "<group>"; };
+		A9DA3E1C221457100097A85B /* WIZEffectTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZEffectTable.h; sourceTree = "<group>"; };
+		A9DA3E1D221457100097A85B /* WIZEffectTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZEffectTable.m; sourceTree = "<group>"; };
+		A9DA3E1F221459070097A85B /* WIZSliderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIZSliderCell.h; sourceTree = "<group>"; };
+		A9DA3E20221459070097A85B /* WIZSliderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WIZSliderCell.m; sourceTree = "<group>"; };
+		A9DA3E21221459070097A85B /* WIZSliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WIZSliderCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,8 +149,8 @@
 				A9BB935F22001CA200BA4484 /* WIZPlayerMainScreen.m */,
 				A99D533B2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.h */,
 				A99D533C2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.m */,
-				A9D027E7220C620A000AA394 /* WIZEQScreen.h */,
-				A9D027E8220C620A000AA394 /* WIZEQScreen.m */,
+				A9DA3E1C221457100097A85B /* WIZEffectTable.h */,
+				A9DA3E1D221457100097A85B /* WIZEffectTable.m */,
 				A99D533E2202C01500BFEDBA /* CellsAndViews */,
 			);
 			path = Screens;
@@ -155,8 +162,12 @@
 				A99D533F2202C03100BFEDBA /* WIZTrackCell.h */,
 				A99D53402202C03100BFEDBA /* WIZTrackCell.m */,
 				A960B2FD2202D530009B797A /* WIZTrackCell.xib */,
-				A9DA3E1922118D6D0097A85B /* WIZSlidersView.h */,
-				A9DA3E1A22118D6D0097A85B /* WIZSlidersView.m */,
+				A9DA3E1F221459070097A85B /* WIZSliderCell.h */,
+				A9DA3E20221459070097A85B /* WIZSliderCell.m */,
+				A9DA3E21221459070097A85B /* WIZSliderCell.xib */,
+				A9A207E42216801500C1281A /* WIZSwitchCell.h */,
+				A9A207E52216801500C1281A /* WIZSwitchCell.m */,
+				A9A207E62216801500C1281A /* WIZSwitchCell.xib */,
 			);
 			path = CellsAndViews;
 			sourceTree = "<group>";
@@ -367,11 +378,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9DA3E23221459070097A85B /* WIZSliderCell.xib in Resources */,
 				A9BB933922001C4D00BA4484 /* LaunchScreen.storyboard in Resources */,
 				A960B2FE2202D530009B797A /* WIZTrackCell.xib in Resources */,
 				A9BB933622001C4D00BA4484 /* Assets.xcassets in Resources */,
 				A976C00B2209BE80005F3188 /* WIZMarqueeTextView.xib in Resources */,
 				A9BB936A220021F900BA4484 /* WIZProgressView.xib in Resources */,
+				A9A207E82216801600C1281A /* WIZSwitchCell.xib in Resources */,
 				A9BB933422001C4B00BA4484 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,12 +412,13 @@
 			files = (
 				A9BB937422007B1B00BA4484 /* WIZAudioProcessor.m in Sources */,
 				A99D53412202C03100BFEDBA /* WIZTrackCell.m in Sources */,
-				A9DA3E1B22118D6D0097A85B /* WIZSlidersView.m in Sources */,
 				A976BFFA220840BC005F3188 /* WIZAudioDataProvider.m in Sources */,
 				A9BB9369220021F900BA4484 /* WIZProgressView.m in Sources */,
-				A9D027E9220C620A000AA394 /* WIZEQScreen.m in Sources */,
+				A9A207E72216801600C1281A /* WIZSwitchCell.m in Sources */,
+				A9DA3E1E221457100097A85B /* WIZEffectTable.m in Sources */,
 				A9BB936022001CA200BA4484 /* WIZPlayerMainScreen.m in Sources */,
 				A976C00A2209BE80005F3188 /* WIZMarqueeTextView.m in Sources */,
+				A9DA3E22221459070097A85B /* WIZSliderCell.m in Sources */,
 				A99D5339220299C100BFEDBA /* WIZPlayerEssentials.m in Sources */,
 				A9BB936D2200221500BA4484 /* WIZEqualizer.m in Sources */,
 				A99D533D2202BFF800BFEDBA /* WIZPlayerPlaylistScreen.m in Sources */,

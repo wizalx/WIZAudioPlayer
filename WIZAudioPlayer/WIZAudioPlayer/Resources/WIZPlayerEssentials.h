@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+
+@interface WIZFilterValue : NSObject
+
+-(id)initFromMinimum:(float)min maximum:(float)max current:(float)current;
+
+@property (nonatomic, readonly) float minimumVal;
+@property (nonatomic, readonly) float maximumVal;
+@property (nonatomic, readonly) float currentVal;
+
+@end
 
 @interface WIZMusicTrack : NSObject <NSSecureCoding>
 
@@ -20,4 +31,12 @@
 
 @end
 
+@interface WIZEQFilterParameters : NSObject
 
+@property (nonatomic) AVAudioUnitEQFilterType filterType;
+@property (nonatomic) float frequency;
+@property (nonatomic) float bandwidth;
+@property (nonatomic) float gain;
+@property (nonatomic) BOOL bypass;
+
+@end

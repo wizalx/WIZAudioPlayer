@@ -8,6 +8,49 @@
 
 #import "WIZPlayerEssentials.h"
 
+@interface WIZFilterValue()
+{
+    float minVal;
+    float maxVal;
+    float curVal;
+}
+@end
+
+@implementation WIZFilterValue
+
+-(id)initFromMinimum:(float)min maximum:(float)max current:(float)current
+{
+    self = [super init];
+    if (self) {
+        if (min)
+            minVal = min;
+        
+        if (max)
+            maxVal = max;
+        
+        if (current)
+            curVal = current;
+    }
+    return self;
+}
+
+-(float)minimumVal
+{
+    return minVal;
+}
+
+-(float)maximumVal
+{
+    return maxVal;
+}
+
+-(float)currentVal
+{
+    return curVal;
+}
+
+@end
+
 @interface WIZMusicTrack()
 {
     NSURL *trackUrl;
@@ -82,6 +125,16 @@
 +(BOOL)supportsSecureCoding
 {
     return YES;
+}
+
+@end
+
+@implementation WIZEQFilterParameters
+
+-(id)init
+{
+    self = [super init];
+    return self;
 }
 
 @end

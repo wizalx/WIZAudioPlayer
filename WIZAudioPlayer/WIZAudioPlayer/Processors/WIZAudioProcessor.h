@@ -14,6 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+#pragma mark - audio processor
+
 @protocol WIZAudioProcessorDelegate <NSObject>
 
 -(void)WIZAudioProcessorGetValues:(NSArray*)values;
@@ -28,10 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) AVAudioPlayerNode* player;
 @property (nonatomic, retain) id <WIZAudioProcessorDelegate> delegate;
 @property (nonatomic) MPRemoteCommandCenter *commandCenter;
-
-@property (nonatomic) BOOL byPass;
-@property (nonatomic) NSArray* eqArray;
-
 
 
 @end

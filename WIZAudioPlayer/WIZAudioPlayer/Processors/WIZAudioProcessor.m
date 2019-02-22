@@ -7,17 +7,18 @@
 //
 
 #import "WIZAudioProcessor.h"
+#import "../Resources/WIZAudioDataProvider.h"
 #import <Accelerate/Accelerate.h>
 
 
-@interface WIZAudioProcessor()
+@interface WIZAudioProcessor() <WIZAudioDataProviderDelegate>
 
 @property (nonatomic) AVAudioEngine *engine;
 @property (nonatomic) NSMutableArray <NSNumber*> *linesPosition;
 @property (nonatomic) NSInteger audioLinesCount;
 
 @property (nonatomic) AVAudioUnitEQ *unitEq;
-
+@property (nonatomic) NSArray <WIZEQFilterParameters*>* filterArray;
 
 @end
 
@@ -39,6 +40,7 @@
 
 -(void)runProcessor
 {
+    [WIZAudioDataProvider sharedInstance].delegate = self;
     //prepare data
     _linesPosition = [NSMutableArray arrayWithCapacity:self.audioLinesCount];
     for (int j = 0; j<self.audioLinesCount; j++)
@@ -127,39 +129,19 @@
 -(void)prepareEq
 {
     
-    self.unitEq = [[AVAudioUnitEQ alloc] initWithNumberOfBands:6];
+    self.unitEq = [[AVAudioUnitEQ alloc] initWithNumberOfBands:11];
     
     AVAudioUnitEQFilterParameters *filterParameters;
     
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<11; i++) {
         filterParameters = self.unitEq.bands[i];
-        filterParameters.filterType = i < 4 ? i+1 : i > 4 ? i+5 : i+2;
-        filterParameters.frequency = 3000;
-        
+        filterParameters.filterType = i;
         filterParameters.bypass = YES;
     }
     
     [self.engine attachNode:self.unitEq];
-}
-
-
--(void)setByPass:(BOOL)byPass
-{
-    _byPass = byPass;
-    [self setEqArray:_eqArray];
-}
-
--(void)setEqArray:(NSArray*)eqArray
-{
-    _eqArray = eqArray;
-    for (int i=0; i<eqArray.count; i++) {
-        AVAudioUnitEQFilterParameters *filterParameters = self.unitEq.bands[i];
-        filterParameters.filterType = i < 4 ? i+1 : i > 4 ? i+5 : i+2;
-        filterParameters.frequency =  [eqArray[i] floatValue];
-        filterParameters.bypass = _byPass;
-
-        [self.engine attachNode:self.unitEq];
-    }
+    
+    [[WIZAudioDataProvider sharedInstance] changeFilter:0 frequency:0 bandwidth:0 gain:0 bypass:YES];
 }
 
 #pragma mark - create remote centr
@@ -190,6 +172,23 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate WIZAudioProcessorResetEngine];
     });
+}
+
+#pragma mark - WIZAudioDataProviderDelegate
+
+-(void)WIZAudioDataProviderChangeFilter
+{
+    _filterArray = [WIZAudioDataProvider sharedInstance].currentFiltres;
+    for (int i=0; i<_filterArray.count; i++) {
+        AVAudioUnitEQFilterParameters *filterParameters = self.unitEq.bands[i];
+        filterParameters.filterType = _filterArray[i].filterType;
+        filterParameters.frequency = _filterArray[i].frequency;
+        filterParameters.bandwidth = _filterArray[i].bandwidth;
+        filterParameters.gain = _filterArray[i].gain;
+        filterParameters.bypass = _filterArray[i].bypass;
+        
+        [self.engine attachNode:self.unitEq];
+    }
 }
 
 @end

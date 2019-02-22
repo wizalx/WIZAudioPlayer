@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "WIZPlayerEssentials.h"
+#import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol WIZAudioDataProviderDelegate <NSObject>
+
+-(void)WIZAudioDataProviderChangeFilter;
+
+@end
 
 @interface WIZAudioDataProvider : NSObject
 
@@ -23,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 //playlist
 @property (nonatomic, readonly) NSArray <WIZMusicTrack*> *playlist;
+
+//filtres
+-(void)changeFilter:(AVAudioUnitEQFilterType)type frequency:(float)frequency bandwidth:(float)bandwidth gain:(float)gain bypass:(BOOL)bypass;
+@property (nonatomic, readonly) NSArray <WIZEQFilterParameters*> *currentFiltres;
+@property (nonatomic, retain) id <WIZAudioDataProviderDelegate> delegate;
 
 @end
 

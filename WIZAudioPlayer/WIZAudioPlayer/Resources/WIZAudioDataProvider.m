@@ -8,9 +8,12 @@
 
 #import "WIZAudioDataProvider.h"
 
+
 @interface WIZAudioDataProvider() {
     NSArray <WIZMusicTrack*>*playlist;
+    NSMutableArray <WIZEQFilterParameters*> *audioFiltres;
 }
+
 
 @end
 
@@ -34,8 +37,6 @@
 
 -(void)savePlaylistToFile
 {
-    NSLog(@"save?");
-
     NSError *error;
     NSData *dataPlaylist = [NSKeyedArchiver archivedDataWithRootObject:playlist requiringSecureCoding:NO error:&error];
     if (error)
@@ -47,8 +48,6 @@
 
 -(void)loadPlaylistFromFile
 {
-    NSLog(@"load?");
-    
     NSData *dataPlaylist = [NSData dataWithContentsOfFile:[self filePathList]];
     
     NSSet *classes = [NSSet setWithObjects:[NSArray class], [WIZMusicTrack class], [NSURL class], [NSString class],[UIImage class], nil];
@@ -58,8 +57,7 @@
     
     if (error)
         NSLog(@"ERROR TO LOAD PLAYLIST: %@",error.description);
-    
-    NSLog(@"playlist.count = %lu",(unsigned long)playlist.count);
+
 }
 
 -(NSString*)filePathList
@@ -79,6 +77,40 @@
 -(NSArray <WIZMusicTrack*>*)playlist
 {
     return playlist;
+}
+
+#pragma mark - filtres
+
+-(void)changeFilter:(AVAudioUnitEQFilterType)type frequency:(float)frequency bandwidth:(float)bandwidth gain:(float)gain bypass:(BOOL)bypass
+{
+    if (!audioFiltres)
+    {
+        audioFiltres = [NSMutableArray arrayWithCapacity:11];
+        for (int i = 0; i < 11; i++) {
+            WIZEQFilterParameters *audioParameters = [[WIZEQFilterParameters alloc] init];
+            audioParameters.filterType = type;
+            audioParameters.bypass = YES;
+            
+            [audioFiltres addObject:audioParameters];
+        }
+    }
+    
+    WIZEQFilterParameters *audioParameters = [[WIZEQFilterParameters alloc] init];
+    audioParameters.filterType = type;
+    audioParameters.frequency = frequency;
+    audioParameters.bandwidth = bandwidth;
+    audioParameters.gain = gain;
+    audioParameters.bypass = bypass;
+    
+    [audioFiltres removeObjectAtIndex:type];
+    [audioFiltres insertObject:audioParameters atIndex:type];
+    
+    [_delegate WIZAudioDataProviderChangeFilter];
+}
+
+-(NSArray <WIZEQFilterParameters*> *)currentFiltres
+{
+    return audioFiltres;
 }
 
 @end

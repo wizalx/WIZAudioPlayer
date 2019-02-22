@@ -20,7 +20,7 @@
 #import "../SourceView/WIZMarqueeTextView/WIZMarqueeTextView.h"
 
 #import "WIZPlayerPlaylistScreen.h"
-#import "WIZEQScreen.h"
+#import "WIZEffectTable.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 typedef enum
@@ -359,9 +359,9 @@ typedef enum
             [self.audioProcessor.player reset];
             [self playNewTrack];
         };
-    } else if ([[segue identifier] isEqualToString:@"showEQ"]) {
-        WIZEQScreen *eqScreen = [segue destinationViewController];
-        eqScreen.audioProcessor = _audioProcessor;
+    } else if ([[segue identifier] isEqualToString:@"showFiltres"]) {
+        WIZEffectTable *filterScreen = [segue destinationViewController];
+        filterScreen.audioProcessor = _audioProcessor;
     }
 }
 
