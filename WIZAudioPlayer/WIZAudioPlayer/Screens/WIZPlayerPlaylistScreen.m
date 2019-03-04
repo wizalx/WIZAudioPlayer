@@ -27,6 +27,8 @@
     UIColor *bgColor = [UIColor colorWithRed:red green:green blue:blu alpha:1.0];
     self.view.backgroundColor = bgColor;
     
+    [self.tableView setEditing:YES animated:YES];
+    [self.tableView reloadData];
 }
 
 
@@ -59,6 +61,50 @@
         _selectTrack([WIZAudioDataProvider sharedInstance].playlist[indexPath.row]);
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - move and delete
+
+#pragma mark -MOVE-
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    NSMutableArray *inputArray = [NSMutableArray arrayWithArray:[WIZAudioDataProvider sharedInstance].playlist];
+    id object = [inputArray objectAtIndex:fromIndexPath.row];
+    [inputArray removeObjectAtIndex:fromIndexPath.row];
+    [inputArray insertObject:object atIndex:toIndexPath.row];
+    
+    [[WIZAudioDataProvider sharedInstance] loadPlaylist:inputArray];
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark -DELETE-
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView
+                  editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *deleteRow = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"opa" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"delete");
+    }];
+    return @[deleteRow];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - cancel

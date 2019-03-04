@@ -311,6 +311,12 @@ typedef enum
     }
 }
 
+- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
+{
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - prepare remote
 
 -(void)prepareRemoteCenter
