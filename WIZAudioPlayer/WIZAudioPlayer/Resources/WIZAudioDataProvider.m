@@ -33,6 +33,15 @@
 -(void)loadPlaylist:(NSArray<WIZMusicTrack *> *)userPlayList
 {
     playlist = userPlayList;
+    [self savePlaylistToFile];
+}
+
+-(void)appendPlaylist:(NSArray <WIZMusicTrack*>*)userPlayList
+{
+    NSMutableArray *tempPlaylist = [NSMutableArray arrayWithArray:playlist];
+    [tempPlaylist addObjectsFromArray:userPlayList];
+    playlist = tempPlaylist;
+    [self savePlaylistToFile];
 }
 
 -(void)savePlaylistToFile
@@ -54,7 +63,9 @@
     
     NSError *error;
     playlist = [NSKeyedUnarchiver unarchivedObjectOfClasses:classes fromData:dataPlaylist error:&error];
-    
+    if (playlist.count == 0) {
+        playlist = nil;
+    }
     if (error)
         NSLog(@"ERROR TO LOAD PLAYLIST: %@",error.description);
 

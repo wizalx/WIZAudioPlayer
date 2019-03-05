@@ -11,6 +11,9 @@
 #import "../Resources/WIZAudioDataProvider.h"
 
 @interface WIZPlayerPlaylistScreen ()
+{
+    BOOL isFilter;
+}
 
 @end
 
@@ -27,7 +30,9 @@
     UIColor *bgColor = [UIColor colorWithRed:red green:green blue:blu alpha:1.0];
     self.view.backgroundColor = bgColor;
     
-    [self.tableView setEditing:YES animated:YES];
+    isFilter = NO;
+    
+    [self.tableView setEditing:NO animated:NO];
     [self.tableView reloadData];
 }
 
@@ -69,7 +74,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO;
+    return YES;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -98,8 +103,13 @@
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView
                   editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewRowAction *deleteRow = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"opa" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        NSLog(@"delete");
+    UITableViewRowAction *deleteRow = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSMutableArray *inputArray = [NSMutableArray arrayWithArray:[WIZAudioDataProvider sharedInstance].playlist];
+        [inputArray removeObjectAtIndex:indexPath.row];
+        
+        [[WIZAudioDataProvider sharedInstance] loadPlaylist:inputArray];
+        
+        [self.tableView reloadData];
     }];
     return @[deleteRow];
 }
@@ -113,5 +123,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - filter
+
+- (IBAction)sortTap:(id)sender {
+    isFilter = !isFilter;
+    [self.tableView setEditing:isFilter animated:isFilter];
+    [self.tableView reloadData];
+}
 
 @end

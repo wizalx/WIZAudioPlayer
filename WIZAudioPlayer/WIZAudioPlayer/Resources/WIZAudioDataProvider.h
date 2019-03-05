@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(WIZAudioDataProvider*)sharedInstance;
 
 -(void)loadPlaylist:(NSArray <WIZMusicTrack*>*)userPlayList;
+-(void)appendPlaylist:(NSArray <WIZMusicTrack*>*)userPlayList;
 
 //saveAndLoad
 -(void)savePlaylistToFile;

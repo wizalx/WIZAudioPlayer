@@ -295,7 +295,11 @@ typedef enum
             
             [tracks addObject:track];
         }
-        [[WIZAudioDataProvider sharedInstance] loadPlaylist:tracks];
+        
+        if ([WIZAudioDataProvider sharedInstance].playlist)
+            [[WIZAudioDataProvider sharedInstance] appendPlaylist:tracks];
+        else
+            [[WIZAudioDataProvider sharedInstance] loadPlaylist:tracks];
         
         if ([WIZAudioDataProvider sharedInstance].playlist.count == 0)
             return;

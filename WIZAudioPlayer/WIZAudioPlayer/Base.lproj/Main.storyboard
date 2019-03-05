@@ -292,6 +292,16 @@
                             <color key="barTintColor" red="0.97326343910000002" green="0.83133556050000001" blue="0.71473403150000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <items>
                                 <navigationItem title="My Playlist" id="Hch-SO-ku4">
+                                    <barButtonItem key="leftBarButtonItem" style="plain" id="qpt-LB-7y9">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9zC-Ji-bof">
+                                            <rect key="frame" x="16" y="0.0" width="48" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="sortIcon"/>
+                                            <connections>
+                                                <action selector="sortTap:" destination="54h-O0-Dx5" eventType="touchUpInside" id="9th-J3-4u5"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" title="Cancel" id="fSB-tm-hnU">
                                         <connections>
                                             <action selector="tapCancel:" destination="54h-O0-Dx5" id="5AJ-d0-Oyz"/>
@@ -328,5 +338,6 @@
         <image name="play" width="67.5" height="67.5"/>
         <image name="playlist" width="75" height="75"/>
         <image name="previous" width="75" height="75"/>
+        <image name="sortIcon" width="48" height="48"/>
     </resources>
 </document>
